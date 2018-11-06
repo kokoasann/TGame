@@ -213,9 +213,12 @@
     <ClCompile Include="Engine\PreCompile.cpp" />
     <ClCompile Include="Engine\sound\SoundEngine.cpp" />
     <ClCompile Include="Engine\window\Window.cpp" />
-    <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameCamera.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Game\Monster\Monster.cpp" />
+    <ClCompile Include="Game\Monster\MonsterAction.cpp" />
+    <ClCompile Include="Game\Monster\MonsterAI.cpp" />
+    <ClCompile Include="Game\Monster\TestAction.cpp" />
+    <ClCompile Include="Game\Monster\TestMons.cpp" />
     <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -283,8 +286,112 @@
     <ClInclude Include="Engine\sound\SoundEngine.h" />
     <ClInclude Include="Engine\util\Util.h" />
     <ClInclude Include="Engine\window\Window.h" />
-    <ClInclude Include="Game.h" />
     <ClInclude Include="GameCamera.h" />
+    <ClInclude Include="Game\Monster\Monster.h" />
+    <ClInclude Include="Game\Monster\MonsterAction.h" />
+    <ClInclude Include="Game\Monster\MonsterAI.h" />
+    <ClInclude Include="Game\Monster\TestAction.h" />
+    <ClInclude Include="Game\Monster\TestMons.h" />
+    <ClInclude Include="Game\PythonBridge\include\abstract.h" />
+    <ClInclude Include="Game\PythonBridge\include\accu.h" />
+    <ClInclude Include="Game\PythonBridge\include\asdl.h" />
+    <ClInclude Include="Game\PythonBridge\include\ast.h" />
+    <ClInclude Include="Game\PythonBridge\include\bitset.h" />
+    <ClInclude Include="Game\PythonBridge\include\bltinmodule.h" />
+    <ClInclude Include="Game\PythonBridge\include\boolobject.h" />
+    <ClInclude Include="Game\PythonBridge\include\bytearrayobject.h" />
+    <ClInclude Include="Game\PythonBridge\include\bytesobject.h" />
+    <ClInclude Include="Game\PythonBridge\include\bytes_methods.h" />
+    <ClInclude Include="Game\PythonBridge\include\cellobject.h" />
+    <ClInclude Include="Game\PythonBridge\include\ceval.h" />
+    <ClInclude Include="Game\PythonBridge\include\classobject.h" />
+    <ClInclude Include="Game\PythonBridge\include\code.h" />
+    <ClInclude Include="Game\PythonBridge\include\codecs.h" />
+    <ClInclude Include="Game\PythonBridge\include\compile.h" />
+    <ClInclude Include="Game\PythonBridge\include\complexobject.h" />
+    <ClInclude Include="Game\PythonBridge\include\datetime.h" />
+    <ClInclude Include="Game\PythonBridge\include\descrobject.h" />
+    <ClInclude Include="Game\PythonBridge\include\dictobject.h" />
+    <ClInclude Include="Game\PythonBridge\include\dtoa.h" />
+    <ClInclude Include="Game\PythonBridge\include\dynamic_annotations.h" />
+    <ClInclude Include="Game\PythonBridge\include\enumobject.h" />
+    <ClInclude Include="Game\PythonBridge\include\errcode.h" />
+    <ClInclude Include="Game\PythonBridge\include\eval.h" />
+    <ClInclude Include="Game\PythonBridge\include\fileobject.h" />
+    <ClInclude Include="Game\PythonBridge\include\fileutils.h" />
+    <ClInclude Include="Game\PythonBridge\include\floatobject.h" />
+    <ClInclude Include="Game\PythonBridge\include\frameobject.h" />
+    <ClInclude Include="Game\PythonBridge\include\funcobject.h" />
+    <ClInclude Include="Game\PythonBridge\include\genobject.h" />
+    <ClInclude Include="Game\PythonBridge\include\graminit.h" />
+    <ClInclude Include="Game\PythonBridge\include\grammar.h" />
+    <ClInclude Include="Game\PythonBridge\include\import.h" />
+    <ClInclude Include="Game\PythonBridge\include\intrcheck.h" />
+    <ClInclude Include="Game\PythonBridge\include\iterobject.h" />
+    <ClInclude Include="Game\PythonBridge\include\listobject.h" />
+    <ClInclude Include="Game\PythonBridge\include\longintrepr.h" />
+    <ClInclude Include="Game\PythonBridge\include\longobject.h" />
+    <ClInclude Include="Game\PythonBridge\include\marshal.h" />
+    <ClInclude Include="Game\PythonBridge\include\memoryobject.h" />
+    <ClInclude Include="Game\PythonBridge\include\metagrammar.h" />
+    <ClInclude Include="Game\PythonBridge\include\methodobject.h" />
+    <ClInclude Include="Game\PythonBridge\include\modsupport.h" />
+    <ClInclude Include="Game\PythonBridge\include\moduleobject.h" />
+    <ClInclude Include="Game\PythonBridge\include\namespaceobject.h" />
+    <ClInclude Include="Game\PythonBridge\include\node.h" />
+    <ClInclude Include="Game\PythonBridge\include\object.h" />
+    <ClInclude Include="Game\PythonBridge\include\objimpl.h" />
+    <ClInclude Include="Game\PythonBridge\include\odictobject.h" />
+    <ClInclude Include="Game\PythonBridge\include\opcode.h" />
+    <ClInclude Include="Game\PythonBridge\include\osdefs.h" />
+    <ClInclude Include="Game\PythonBridge\include\osmodule.h" />
+    <ClInclude Include="Game\PythonBridge\include\parsetok.h" />
+    <ClInclude Include="Game\PythonBridge\include\patchlevel.h" />
+    <ClInclude Include="Game\PythonBridge\include\pgen.h" />
+    <ClInclude Include="Game\PythonBridge\include\pgenheaders.h" />
+    <ClInclude Include="Game\PythonBridge\include\pyarena.h" />
+    <ClInclude Include="Game\PythonBridge\include\pyatomic.h" />
+    <ClInclude Include="Game\PythonBridge\include\pycapsule.h" />
+    <ClInclude Include="Game\PythonBridge\include\pyconfig.h" />
+    <ClInclude Include="Game\PythonBridge\include\pyctype.h" />
+    <ClInclude Include="Game\PythonBridge\include\pydebug.h" />
+    <ClInclude Include="Game\PythonBridge\include\pydtrace.h" />
+    <ClInclude Include="Game\PythonBridge\include\pyerrors.h" />
+    <ClInclude Include="Game\PythonBridge\include\pyexpat.h" />
+    <ClInclude Include="Game\PythonBridge\include\pyfpe.h" />
+    <ClInclude Include="Game\PythonBridge\include\pygetopt.h" />
+    <ClInclude Include="Game\PythonBridge\include\pyhash.h" />
+    <ClInclude Include="Game\PythonBridge\include\pylifecycle.h" />
+    <ClInclude Include="Game\PythonBridge\include\pymacconfig.h" />
+    <ClInclude Include="Game\PythonBridge\include\pymacro.h" />
+    <ClInclude Include="Game\PythonBridge\include\pymath.h" />
+    <ClInclude Include="Game\PythonBridge\include\pymem.h" />
+    <ClInclude Include="Game\PythonBridge\include\pyport.h" />
+    <ClInclude Include="Game\PythonBridge\include\pystate.h" />
+    <ClInclude Include="Game\PythonBridge\include\pystrcmp.h" />
+    <ClInclude Include="Game\PythonBridge\include\pystrhex.h" />
+    <ClInclude Include="Game\PythonBridge\include\pystrtod.h" />
+    <ClInclude Include="Game\PythonBridge\include\Python-ast.h" />
+    <ClInclude Include="Game\PythonBridge\include\Python.h" />
+    <ClInclude Include="Game\PythonBridge\include\pythonrun.h" />
+    <ClInclude Include="Game\PythonBridge\include\pythread.h" />
+    <ClInclude Include="Game\PythonBridge\include\pytime.h" />
+    <ClInclude Include="Game\PythonBridge\include\py_curses.h" />
+    <ClInclude Include="Game\PythonBridge\include\rangeobject.h" />
+    <ClInclude Include="Game\PythonBridge\include\setobject.h" />
+    <ClInclude Include="Game\PythonBridge\include\sliceobject.h" />
+    <ClInclude Include="Game\PythonBridge\include\structmember.h" />
+    <ClInclude Include="Game\PythonBridge\include\structseq.h" />
+    <ClInclude Include="Game\PythonBridge\include\symtable.h" />
+    <ClInclude Include="Game\PythonBridge\include\sysmodule.h" />
+    <ClInclude Include="Game\PythonBridge\include\token.h" />
+    <ClInclude Include="Game\PythonBridge\include\traceback.h" />
+    <ClInclude Include="Game\PythonBridge\include\tupleobject.h" />
+    <ClInclude Include="Game\PythonBridge\include\typeslots.h" />
+    <ClInclude Include="Game\PythonBridge\include\ucnhash.h" />
+    <ClInclude Include="Game\PythonBridge\include\unicodeobject.h" />
+    <ClInclude Include="Game\PythonBridge\include\warnings.h" />
+    <ClInclude Include="Game\PythonBridge\include\weakrefobject.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
@@ -293,6 +400,15 @@
   <ItemGroup>
     <Image Include="Assets\modelData\boxTex.png" />
     <ImageContentTask Include="Assets\Sprite\Test.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="Game\dlllib\python36.dll">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Game\dlllib\python36_d.dll">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <None Include="Game\PythonBridge\include\pydtrace.d" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

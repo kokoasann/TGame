@@ -4,5 +4,6 @@ class NetworkLogic
 public:
 	NetworkLogic();
 	~NetworkLogic();
+
 };
 
