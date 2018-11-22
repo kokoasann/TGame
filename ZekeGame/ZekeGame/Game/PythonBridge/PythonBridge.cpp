@@ -290,9 +290,9 @@ void PythonBridge::Update()
 	}*/
 	if (pTS != nullptr && end)
 	{
-		//PyEval_RestoreThread(pTS);
+		PyEval_RestoreThread(pTS);
 		////PyEval_ReleaseThread(pTS);
-		Py_Finalize();
+		//Py_Finalize();
 		end = false;
 	}
 }
@@ -417,45 +417,59 @@ void PythonBridge::py_exe(int num,int team,const char* file)
 
 	SetCurrentDirectory("Python36");
 
-	/*PyEval_InitThreads();
+	/*PyImport_AppendInittab("SendGame", initModule);
+	Py_InitializeEx(1);*/
+
+	PyEval_InitThreads();
 
 	th.reset(new std::thread([=]
 	{
 		PyGILState_STATE GILState;
-		GILState = PyGILState_Ensure();*/
-	PyImport_AppendInittab("SendGame", initModule);
-	Py_InitializeEx(1);
+		GILState = PyGILState_Ensure();
+	
 
 	PyObject *pName, *pModule, *pFunction, *pArgs, *pValue;
 	
-	pName = PyUnicode_DecodeFSDefault(file);
-	//pName = PyUnicode_DecodeFSDefault("PythonAIs.CppBridge");
+	//pName = PyUnicode_DecodeFSDefault(file);
+	pName = PyUnicode_DecodeFSDefault("PythonAIs.Threader");
 	pModule = PyImport_Import(pName);
 	Py_DECREF(pName);
 
-	//pFunction = PyObject_GetAttrString(pModule, "execute");
-	pFunction = PyObject_GetAttrString(pModule, "Brain");
+	pFunction = PyObject_GetAttrString(pModule, "execute");
+	//pFunction = PyObject_GetAttrString(pModule, "Brain");
 
-	pArgs = PyTuple_New(2);
+	pArgs = PyTuple_New(3);
 	PyObject* pMenum = PyLong_FromLong(num);
 	PyObject* pMeteam = PyLong_FromLong(team);
-	//PyObject* pFile = PyUnicode_FromString(file);
+	PyObject* pFile = PyUnicode_FromString(file);
 	PyTuple_SetItem(pArgs, 0, pMenum);
 	PyTuple_SetItem(pArgs, 1, pMeteam);
-	//PyTuple_SetItem(pArgs, 2, pFile);
+	PyTuple_SetItem(pArgs, 2, pFile);
 
 	pValue = PyObject_CallObject(pFunction, pArgs);
 
-	//PyGILState_Release(GILState);
+	//char* c = PyUnicode_AsUTF8(pValue);
 
 	Py_DECREF(pArgs);
 	Py_DECREF(pModule);
 	Py_DECREF(pFunction);
 
+	
+
 	if (pValue == NULL)
 	{
 		SetCurrentDirectory("../");
 		//Py_Finalize();
+		
+		end = true;
+		return;
+	}
+	else
+	{
+		
+		Py_DECREF(pValue);
+		PyGILState_Release(GILState);
+		SetCurrentDirectory("../");
 		
 		end = true;
 		return;
@@ -484,10 +498,10 @@ void PythonBridge::py_exe(int num,int team,const char* file)
 
 	//Py_Finalize();
 	end = true;
-	//}));
+	}));
 
-	//pTS = PyEval_SaveThread();
-	Py_Finalize();
+	pTS = PyEval_SaveThread();
+	//Py_Finalize();
 }
 
 void PythonBridge::AddExe(int num, int team, const char * file)
@@ -502,11 +516,11 @@ void PythonBridge::py_exe()
 
 Pyinit::Pyinit()
 {
-	//PyImport_AppendInittab("SendGame", initModule);
-	//Py_InitializeEx(1);
+	PyImport_AppendInittab("SendGame", initModule);
+	Py_InitializeEx(1);
 }
 
 Pyinit::~Pyinit()
 {
-	//Py_Finalize();
+	Py_Finalize();
 }

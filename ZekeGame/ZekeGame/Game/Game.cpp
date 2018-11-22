@@ -29,7 +29,7 @@ void Game::GamePVPmodeInit(std::vector<std::string> files, int monsterAI[6])
 
 bool Game::Start() {
 	
-	//m_pi = new Pyinit;
+	m_pi = new Pyinit;
 	
 	NewGO<MonsterActionManeger>(0, "MAM");
 	m_model = NewGO<SkinModelRender>(0, "model");

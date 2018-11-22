@@ -972,21 +972,16 @@
     <CopyFileToFolders Include="Game\dlllib\python36.dll">
       <Filter>ソース ファイル\Game\dll</Filter>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="PythonAIs\ang.py" />
+    <CopyFileToFolders Include="PythonAIs\CppBridge.py" />
+    <CopyFileToFolders Include="PythonAIs\testBrain.py" />
+    <CopyFileToFolders Include="PythonAIs\testBrain1.py" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Game\PythonBridge\include\pydtrace.d">
       <Filter>ソース ファイル\Game\PythonBridge\include</Filter>
     </None>
-    <None Include="PythonAIs\testBrain.py">
-      <Filter>ソース ファイル\Game\PythonAIs</Filter>
-    </None>
-    <None Include="PythonAIs\testBrain1.py">
-      <Filter>ソース ファイル\Game\PythonAIs</Filter>
-    </None>
-    <None Include="PythonAIs\ang.py">
-      <Filter>ソース ファイル\Game\PythonAIs</Filter>
-    </None>
-    <None Include="PythonAIs\CppBridge.py">
+    <None Include="PythonAIs\Threader.py">
       <Filter>ソース ファイル\Game\PythonAIs</Filter>
     </None>
   </ItemGroup>

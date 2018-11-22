@@ -10,22 +10,27 @@ int g_meTeam = 0;
 
 void GameData::deletemons(Monster * mon)
 {
-	for (Monster* gmon : g_mons)
+	int mop = 0;
+	for (int i = 0;i < g_monsCount;i++)
 	{
+		Monster* gmon = g_mons[i];
 		if (gmon == nullptr)
 			break;
+		if (gmon == mon)
+			mop = i;
 		for (auto ac : gmon->Getactions())
 		{
 			if (ac->Gettarget() == mon)
 				ac->Settarget(nullptr);
 		}
 	}
+
 	g_monsCount--;
-	for (int i = mon->Getnum(); i < g_monsCount+1; i++)
+	for (int i = mop; i < g_monsCount+1; i++)
 	{
 		g_mons[i] = g_mons[i + 1];
-		if(g_mons[i] != NULL)
-			g_mons[i]->Setnum(i);
+		/*if(g_mons[i] != NULL)
+			g_mons[i]->Setnum(i);*/
 	}
 	/*std::vector<Monster*>::iterator ite = std::find(g_mons.begin(), g_mons.end(), mon);
 	g_mons.erase(ite);*/

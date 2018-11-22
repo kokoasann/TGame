@@ -109,8 +109,6 @@ class GameData:
         self.me.num = mon.num
         self.me.team = mon.team
         
-    def tesGetEneNum():
-        return SendGame.GetAllEnemyNum()
 
     def GetFarMonster(self):
         farmon = None

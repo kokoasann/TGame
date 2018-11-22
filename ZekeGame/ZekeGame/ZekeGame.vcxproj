@@ -455,6 +455,7 @@
     <CopyFileToFolders Include="PythonAIs\testBrain1.py">
       <FileType>Document</FileType>
     </CopyFileToFolders>
+    <None Include="PythonAIs\Threader.py" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="python36.lib">
