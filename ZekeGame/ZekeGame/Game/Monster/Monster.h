@@ -20,10 +20,14 @@ public:
 	//回転するときに使う関数
 	void Turn();
 
+	//ノックバック時に使う関数
 	void Knockback();
 
+	//ノックバックの始まり
+	//v: ノックバックするベクトル
 	void StartKnockback(CVector3 v);
 
+	//状態
 	enum en_State
 	{
 		en_NowLoading,
@@ -31,81 +35,120 @@ public:
 		en_Dead,
 	};
 
-	
+	//使うpythonのファイルを設定する
+	//st: ファイルの名前
 	void SetpyFile(const char* st)
 	{
 		m_pyFile = st;
 	}
+
+	//使うpythonファイルの名前を返す
 	const char* GetpyFile()
 	{
 		return m_pyFile;
 	}
 
+	//HPを返す
 	int GetHP()
 	{
 		return m_HP;
 	}
+
+	//ダメージ
+	//d: 食らうダメージ
 	void Damage(int d)
 	{
 		m_HP -= d;
 	}
+
+	//MPを返す
 	int GetMP()
 	{
 		return m_MP;
 	}
+
+	//コライダーの半径を返す
 	float Getradius()
 	{
 		return m_radius;
 	}
+
+	//コライダーの高さを返す
 	float Getheight()
 	{
 		return m_height;
 	}
+
+	//現在のポジションを返す
 	CVector3 Getpos()
 	{
 		return m_pos;
 	}
+
+	//ポジションを設定する
+	//v: 設定するポジション
 	void Setpos(CVector3 v)
 	{
 		m_pos = v;
 	}
+
+	//スピードを返す
 	CVector3 Getspeed()
 	{
 		return m_movespeed;
 	}
+
+	//スピードを設定する
+	//v: スピードベクトル
 	void Setspeed(CVector3 v)
 	{
 		m_oldmovespeed = m_movespeed;
 		m_movespeed = v;
 	}
 
+	//今歩いているかを設定する
 	void Setiswalk(bool b)
 	{
 		m_iswalk = b;
 	}
+
+	//チームを返す
 	int Getteam()
 	{
 		return m_team;
 	}
+
+	//チームを設定する
+	//t: チーム
 	void Setteam(int t)
 	{
 		m_team = t;
 	}
+
+	//numを返す
 	int Getnum()
 	{
 		return m_num;
 	}
+
+	//numを設定する
+	//num: num
 	void Setnum(int num)
 	{
 		m_num = num;
 	}
 
+	//これいらない
 	Monster* Getmon()
 	{
 		return this;
 	}
 
+	//アクションを加えるときに使う
+	//ma: モンスターアクション
 	void AddAction(MonsterAction* ma);
+
+	//行っている・行う予定のアクションを返す
 	std::vector<MonsterAction*> Getactions()
 	{
 		return m_actions;
@@ -118,6 +161,7 @@ public:
 	void anim_defense();
 	void anim_recovery();
 
+	//アニメーションの状態
 	enum anim
 	{
 		en_idle,
