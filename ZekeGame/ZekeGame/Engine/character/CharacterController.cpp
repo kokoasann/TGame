@@ -98,13 +98,13 @@ namespace {
 }
 
 
-void CharacterController::Init(float radius, float height, const CVector3& position)
+void CharacterController::Init(float radius, float height, const CVector3& position,EnFbxUpAxis axis)
 {
 	m_position = position;
 	//コリジョン作成。
 	m_radius = radius;
 	m_height = height;
-	m_collider.Create(radius, height);
+	m_collider.Create(radius, height, axis);
 
 	//剛体を初期化。
 	RigidBodyInfo rbInfo;

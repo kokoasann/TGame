@@ -69,7 +69,7 @@ struct PSInput {
 	float3 Normal		: NORMAL;
 	float3 Tangent		: TANGENT;
 	float2 TexCoord 	: TEXCOORD0;
-	float4 Color :COLOR0;
+	float4 Color			:COLOR0;
 };
 /*!
  *@brief	スキン行列を計算。
@@ -148,6 +148,13 @@ PSInput VSMainSkin(VSInputNmTxWeights In)
 	pos = mul(mProj, pos);
 	psInput.Position = pos;
 	psInput.TexCoord = In.TexCoord;
+	//psInput.Color
+	float4 color;
+	color = saturate(-dot(psInput.Normal.xyz, (float3)mDirLight));
+	color = color * 0.5 + 0.3;
+	psInput.Color.xyz = color.xyz *mColor.xyz;
+	//psInput.Color.xyz = psInput.Normal.xyz;
+	psInput.Color.w = 1.0f;
 	return psInput;
 }
 //--------------------------------------------------------------------------------------
@@ -155,8 +162,10 @@ PSInput VSMainSkin(VSInputNmTxWeights In)
 //--------------------------------------------------------------------------------------
 float4 PSMain(PSInput In) : SV_Target0
 {
-	//return In.Color;
 	return albedoTexture.Sample(Sampler, In.TexCoord) * In.Color;
-	//float4 col = {1.0f,0.0f,0.0f,0.0f};
-	//return col;
+}
+
+float4 PSMainSkin(PSInput In) : SV_Target0
+{
+	return albedoTexture.Sample(Sampler, In.TexCoord) * In.Color;
 }

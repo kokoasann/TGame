@@ -11,5 +11,13 @@
 */
 CapsuleCollider::~CapsuleCollider()
 {
-	delete shape;
+	if (m_axis == enFbxUpAxisY) {
+		delete shape;
+	}
+	else if (m_axis == enFbxUpAxisZ) {
+		delete shapez;
+	}
+	else {
+		delete shapex;
+	}
 }

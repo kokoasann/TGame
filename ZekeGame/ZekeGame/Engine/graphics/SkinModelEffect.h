@@ -16,15 +16,9 @@ protected:
 	ID3D11ShaderResourceView* m_albedoTex = nullptr;
 
 public:
-	ModelEffect(char* vsmain, char* psmain)
+	ModelEffect(const char* psmain, const char* vsmain)
 	{
-		if (vsmain == nullptr || psmain == nullptr) {
-			m_psShader.Load("Assets/shader/model.fx", "PSMain", Shader::EnType::PS);
-		}
-		else {
-			m_psShader.Load("Assets/shader/model.fx", psmain, Shader::EnType::PS);
-		}
-
+		m_psShader.Load("Assets/shader/model.fx", psmain, Shader::EnType::PS);
 		m_pPSShader = &m_psShader;
 	}
 	virtual ~ModelEffect()
@@ -61,14 +55,9 @@ public:
 */
 class NonSkinModelEffect : public ModelEffect {
 public:
-	NonSkinModelEffect(char* psmain, char* vsmain) : ModelEffect(psmain,vsmain)
+	NonSkinModelEffect(const char* psmain, const char* vsmain) : ModelEffect(psmain,vsmain)
 	{
-		if (psmain == nullptr || vsmain == nullptr) {
-			m_vsShader.Load("Assets/shader/model.fx", "VSMain", Shader::EnType::VS);
-		}
-		else {
-			m_vsShader.Load("Assets/shader/model.fx", vsmain, Shader::EnType::VS);
-		}
+		m_vsShader.Load("Assets/shader/model.fx", vsmain, Shader::EnType::VS);
 		m_pVSShader = &m_vsShader;
 		isSkining = false;
 	}
@@ -80,16 +69,11 @@ public:
 */
 class SkinModelEffect : public ModelEffect {
 public:
-	SkinModelEffect(char* psmain, char* vsmain) : ModelEffect(psmain,vsmain)
+	SkinModelEffect(const char* psmain, const char* vsmain) : ModelEffect(psmain,vsmain)
 	{
 		wchar_t hoge[256];
 		GetCurrentDirectoryW(256, hoge);
-		if (psmain == nullptr || vsmain == nullptr) {
-			m_vsShader.Load("Assets/shader/model.fx", "VSMain", Shader::EnType::VS);
-		}
-		else {
-			m_vsShader.Load("Assets/shader/model.fx", vsmain, Shader::EnType::VS);
-		}
+		m_vsShader.Load("Assets/shader/model.fx", vsmain, Shader::EnType::VS);
 		m_pVSShader = &m_vsShader;
 		isSkining = true;
 	}
@@ -101,7 +85,7 @@ public:
 */
 class SkinModelEffectFactory : public DirectX::EffectFactory {
 public:
-	SkinModelEffectFactory(ID3D11Device* device, char* psmain, char* vsmain) :
+	SkinModelEffectFactory(ID3D11Device* device, const char* psmain, const char* vsmain) :
 		m_psmain(psmain),
 		m_vsmain(vsmain),
 		EffectFactory(device) {}
@@ -130,6 +114,6 @@ public:
 	{
 		return DirectX::EffectFactory::CreateTexture(name, deviceContext, textureView);
 	}
-	char* m_psmain;
-	char* m_vsmain;
+	const char* m_psmain;
+	const char* m_vsmain;
 };

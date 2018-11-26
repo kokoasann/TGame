@@ -28,7 +28,7 @@ public:
 	*@param[in]	filePath		ロードするcmoファイルのファイルパス。
 	*@param[in] enFbxUpAxis		fbxの上軸。デフォルトはenFbxUpAxisZ。
 	*/
-	void Init(const wchar_t* filePath, EnFbxUpAxis enFbxUpAxis = enFbxUpAxisZ, char* entryPS = nullptr, char* entryVS = nullptr);
+	void Init(const wchar_t* filePath, EnFbxUpAxis enFbxUpAxis = enFbxUpAxisZ, const char* entryPS = "PSMain", const char* entryVS = "VSMain");
 
 	CMatrix GetWorldMatrix() {
 		return m_worldMatrix;
@@ -131,6 +131,8 @@ private:
 	ID3D11SamplerState* m_samplerState = nullptr;		//!<サンプラステート。
 	CVector4 m_DirLight = { 0.707,-0.707,0.0f,0.0f };
 	CVector4 m_DirCol = { 1.0f,1.0f,1.0f,1.0f };
+	const char* m_vsmain;
+	const char* m_psmain;
 	//DirectionLight m_light;
 };
 

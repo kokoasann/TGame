@@ -5,7 +5,7 @@
 
 SkinModelDataManager g_skinModelDataManager;
 
-DirectX::Model* SkinModelDataManager::Load(const wchar_t* filePath, const Skeleton& skeleton, char* psmain, char* vsmain)
+DirectX::Model* SkinModelDataManager::Load(const wchar_t* filePath, const Skeleton& skeleton, const char* psmain, const char* vsmain)
 {
 	DirectX::Model* retModel = NULL;
 	//ボーンを発見したときのコールバック関数。

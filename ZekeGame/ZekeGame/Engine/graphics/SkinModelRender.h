@@ -13,7 +13,7 @@ public:
 	void Init(const wchar_t* filePath,
 		AnimationClip* animationClips = nullptr,
 		int numAnimationClips = 0,
-		EnFbxUpAxis = enFbxUpAxisZ, char* psmain = nullptr,char* vsmain = nullptr);
+		EnFbxUpAxis = enFbxUpAxisZ, const char* psmain = "PSMain", const char* vsmain = "VSMain");
 		
 	void InitAnimation(AnimationClip* animationClips, int numAnimationClips);
 
@@ -79,6 +79,8 @@ public:
 private:
 	SkinModel m_skinModel;
 	EnFbxUpAxis m_enFbxUpAxis;
+	const char* m_psmain;
+	const char* m_vsmain;
 	Animation m_animation;
 	AnimationClip* m_animationClips = nullptr;
 	int m_numAnimationClips = 0;

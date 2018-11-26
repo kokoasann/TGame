@@ -19,15 +19,32 @@ public:
 	*@param[in] radius	カプセルの半径。
 	*@param[in]	height	カプセルの高さ。
 	*/
-	void Create(float radius, float height)
+	void Create(float radius, float height, EnFbxUpAxis axis)
 	{
-		shape = new btCapsuleShape(radius, height);
+		m_axis = axis;
+		if (axis == enFbxUpAxisY) {
+			shape = new btCapsuleShape(radius, height);
+		}
+		else if(axis == enFbxUpAxisZ){
+			shapez = new btCapsuleShapeZ(radius, height);
+		}
+		else {
+			shapex = new btCapsuleShapeX(radius, height);
+		}
 		this->radius = radius;
 		this->height = height;
 	}
 	btCollisionShape* GetBody() const override
 	{
-		return shape;
+		if (m_axis == enFbxUpAxisY) {
+			return shape;
+		}
+		else if (m_axis == enFbxUpAxisZ) {
+			return shapez;
+		}
+		else {
+			return shapex;
+		}
 	}
 	float GetRadius() const
 	{
@@ -39,6 +56,9 @@ public:
 	}
 private:
 	btCapsuleShape * shape = nullptr;
+	btCapsuleShapeZ * shapez = nullptr;
+	btCapsuleShapeX * shapex = nullptr;
+	EnFbxUpAxis m_axis;
 	float radius = 0.0f;
 	float height = 0.0f;
 };

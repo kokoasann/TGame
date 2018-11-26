@@ -13,9 +13,11 @@ SkinModel::~SkinModel()
 		m_samplerState->Release();
 	}
 }
-void SkinModel::Init(const wchar_t* filePath, EnFbxUpAxis enFbxUpAxis, char* entryPS, char* entryVS)
+void SkinModel::Init(const wchar_t* filePath, EnFbxUpAxis enFbxUpAxis, const char* entryPS, const char* entryVS)
 {
-	//m_light.Init();
+
+	m_psmain = entryPS;
+	m_vsmain= entryVS;
 	//スケルトンのデータを読み込む。
 	InitSkeleton(filePath);
 
@@ -26,7 +28,7 @@ void SkinModel::Init(const wchar_t* filePath, EnFbxUpAxis enFbxUpAxis, char* ent
 	InitSamplerState();
 
 	//SkinModelDataManagerを使用してCMOファイルのロード。
-	m_modelDx = g_skinModelDataManager.Load(filePath, m_skeleton, entryPS, entryVS);
+	m_modelDx = g_skinModelDataManager.Load(filePath, m_skeleton, m_psmain, m_vsmain);
 	m_enFbxUpAxis = enFbxUpAxis;
 }
 void SkinModel::InitSkeleton(const wchar_t* filePath)
@@ -49,6 +51,11 @@ void SkinModel::InitSkeleton(const wchar_t* filePath)
 		//sprintf_s(message, "tksファイルの読み込みに失敗しました。%ls\n", skeletonFilePath.c_str());
 		OutputDebugStringA(message);
 #endif
+	}
+	else {
+		if (strcmp(m_vsmain, "VSMain") == 0) {
+			m_vsmain = "VSMainSkin";
+		}
 	}
 }
 void SkinModel::InitConstantBuffer()
