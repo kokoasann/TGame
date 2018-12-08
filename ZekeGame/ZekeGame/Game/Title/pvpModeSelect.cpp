@@ -11,6 +11,12 @@
 bool PvPModeSelect::Start()
 {
 	m_files = PythonFileLoad::FilesLoad();
+
+	for (int i = 0; i < 6; i++)
+	{
+		SpriteRender* sp = NewGO<SpriteRender>(0, "sp");
+		sp->Init(L"Assets/sprite/mon")
+	}
 	return true;
 }
 
