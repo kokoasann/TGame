@@ -251,6 +251,7 @@
     <ClCompile Include="Game\SaveLoad\PythonFileLoad.cpp" />
     <ClCompile Include="Game\StageSetup\StageSetup.cpp" />
     <ClCompile Include="Game\Title\AIeditModeSelect.cpp" />
+    <ClCompile Include="Game\Title\AISelect.cpp" />
     <ClCompile Include="Game\Title\ModeSelect.cpp" />
     <ClCompile Include="Game\Title\MonsterSelect.cpp" />
     <ClCompile Include="Game\Title\PMMonster.cpp" />
@@ -460,6 +461,7 @@
     <ClInclude Include="Game\SaveLoad\PythonFileLoad.h" />
     <ClInclude Include="Game\StageSetup\StageSetup.h" />
     <ClInclude Include="Game\Title\AIeditModeSelect.h" />
+    <ClInclude Include="Game\Title\AISelect.h" />
     <ClInclude Include="Game\Title\ModeSelect.h" />
     <ClInclude Include="Game\Title\MonsterSelect.h" />
     <ClInclude Include="Game\Title\PMMonster.h" />
@@ -475,10 +477,10 @@
     <MeshContentTask Include="Assets\modelData\uma\uma.fbx" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Assets\Sprite\GUI\modeSelect\mon_sel\mon_back.png" />
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\mon_sel\mon_back.png" />
     <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\mon_sel\mon_none.png" />
-    <Image Include="Assets\Sprite\GUI\modeSelect\mon_sel\mon_one.png" />
-    <Image Include="Assets\Sprite\GUI\modeSelect\mon_sel\mon_two.png" />
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\mon_sel\mon_one.png" />
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\mon_sel\mon_two.png" />
     <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\ai_sel\ai_even.png" />
     <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\ai_sel\ai_main.png" />
     <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\ai_sel\ai_odd.png" />

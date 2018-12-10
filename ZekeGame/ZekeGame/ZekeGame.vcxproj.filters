@@ -452,9 +452,6 @@
     <ClCompile Include="Game\Result\ResultCamera.cpp">
       <Filter>ソース ファイル\Game\Result</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\HID\Mouse.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\physics\SpriteBoxCollider.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -474,6 +471,12 @@
       <Filter>ソース ファイル\Game\Title</Filter>
     </ClCompile>
     <ClCompile Include="Game\Title\PMMonster.cpp">
+      <Filter>ソース ファイル\Game\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\HID\Mouse.cpp">
+      <Filter>ソース ファイル\Engine\HID</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Title\AISelect.cpp">
       <Filter>ソース ファイル\Game\Title</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1078,7 +1081,6 @@
     <ClInclude Include="Game\Result\ResultCamera.h">
       <Filter>ソース ファイル\Game\Result</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\HID\Mouse.h" />
     <ClInclude Include="Engine\physics\SpriteBoxCollider.h" />
     <ClInclude Include="Game\AIEdit\AIEditLine.h" />
     <ClInclude Include="Game\AIEdit\AIEditNode.h" />
@@ -1090,6 +1092,12 @@
       <Filter>ソース ファイル\Game\Title</Filter>
     </ClInclude>
     <ClInclude Include="Game\Title\PMMonster.h">
+      <Filter>ソース ファイル\Game\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\HID\Mouse.h">
+      <Filter>ソース ファイル\Engine\HID</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Title\AISelect.h">
       <Filter>ソース ファイル\Game\Title</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1119,15 +1127,6 @@
     </Image>
     <Image Include="Assets\modelData\stage\handle010.jpg">
       <Filter>ソース ファイル\Game\Assets\modelData\Stage</Filter>
-    </Image>
-    <Image Include="Assets\Sprite\GUI\modeSelect\mon_sel\mon_back.png">
-      <Filter>ソース ファイル\Game\Assets\sprite\GUI\mon_Select</Filter>
-    </Image>
-    <Image Include="Assets\Sprite\GUI\modeSelect\mon_sel\mon_one.png">
-      <Filter>ソース ファイル\Game\Assets\sprite\GUI\mon_Select</Filter>
-    </Image>
-    <Image Include="Assets\Sprite\GUI\modeSelect\mon_sel\mon_two.png">
-      <Filter>ソース ファイル\Game\Assets\sprite\GUI\mon_Select</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
@@ -1216,6 +1215,15 @@
       <Filter>ソース ファイル\Game\Assets\sprite\GUI\AI_Select</Filter>
     </ImageContentTask>
     <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\mon_sel\mon_none.png">
+      <Filter>ソース ファイル\Game\Assets\sprite\GUI\mon_Select</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\mon_sel\mon_back.png">
+      <Filter>ソース ファイル\Game\Assets\sprite\GUI\mon_Select</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\mon_sel\mon_one.png">
+      <Filter>ソース ファイル\Game\Assets\sprite\GUI\mon_Select</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\mon_sel\mon_two.png">
       <Filter>ソース ファイル\Game\Assets\sprite\GUI\mon_Select</Filter>
     </ImageContentTask>
   </ItemGroup>

@@ -10,6 +10,11 @@ public:
 	void Update() override;
 	void PostRender() override;
 	void LoadFiles();
+	
+	std::vector<std::string> GetFiles()
+	{
+		return m_files;
+	}
 private:
 	CFont font;
 	std::vector<std::string> m_files;
