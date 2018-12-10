@@ -250,7 +250,11 @@
     <ClCompile Include="Game\Result\Win\Win_randomPVP.cpp" />
     <ClCompile Include="Game\SaveLoad\PythonFileLoad.cpp" />
     <ClCompile Include="Game\StageSetup\StageSetup.cpp" />
+    <ClCompile Include="Game\Title\AIeditModeSelect.cpp" />
+    <ClCompile Include="Game\Title\AISelect.cpp" />
     <ClCompile Include="Game\Title\ModeSelect.cpp" />
+    <ClCompile Include="Game\Title\MonsterSelect.cpp" />
+    <ClCompile Include="Game\Title\PMMonster.cpp" />
     <ClCompile Include="Game\Title\pvpModeSelect.cpp" />
     <ClCompile Include="Game\Title\Title.cpp" />
     <ClCompile Include="stdafx.cpp" />
@@ -456,7 +460,11 @@
     <ClInclude Include="Game\Result\Win\Win_randomPVP.h" />
     <ClInclude Include="Game\SaveLoad\PythonFileLoad.h" />
     <ClInclude Include="Game\StageSetup\StageSetup.h" />
+    <ClInclude Include="Game\Title\AIeditModeSelect.h" />
+    <ClInclude Include="Game\Title\AISelect.h" />
     <ClInclude Include="Game\Title\ModeSelect.h" />
+    <ClInclude Include="Game\Title\MonsterSelect.h" />
+    <ClInclude Include="Game\Title\PMMonster.h" />
     <ClInclude Include="Game\Title\pvpModeSelect.h" />
     <ClInclude Include="Game\Title\Title.h" />
     <ClInclude Include="stdafx.h" />
@@ -469,6 +477,22 @@
     <MeshContentTask Include="Assets\modelData\uma\uma.fbx" />
   </ItemGroup>
   <ItemGroup>
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\mon_sel\mon_back.png" />
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\mon_sel\mon_none.png" />
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\mon_sel\mon_one.png" />
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\mon_sel\mon_two.png" />
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\ai_sel\ai_even.png" />
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\ai_sel\ai_main.png" />
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\ai_sel\ai_odd.png" />
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\ai_sel\ai_sel.png" />
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\dungeonG.png" />
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\dungeonW.png" />
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\kanshouG.png" />
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\kanshouW.png" />
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\easyeditG.png" />
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\easyeditW.png" />
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\pythoneditG.png" />
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\pythoneditW.png" />
     <ImageContentTask Include="Assets\Sprite\kariline.png" />
     <ImageContentTask Include="Assets\Sprite\Mp.png" />
     <ImageContentTask Include="Assets\Sprite\karipoint.png" />
@@ -479,11 +503,9 @@
     <ImageContentTask Include="Assets\Sprite\Hp.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ImageContentTask>
-
     <ImageContentTask Include="Assets\Sprite\GUI\clear.png" />
     <ImageContentTask Include="Assets\modelData\uma\uma.png" />
     <ImageContentTask Include="Assets\modelData\uma\uma_eye.png" />
-
     <ImageContentTask Include="Assets\Sprite\GUI\cursor.png" />
     <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\AIeditG.png" />
     <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\AIeditW.png" />

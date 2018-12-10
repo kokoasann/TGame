@@ -4,6 +4,19 @@
 
 extern Monster* g_mons[64];
 
+enum MonsterID
+{
+	enTest,
+	enUmataur,
+};
+
+enum ActionID
+{
+	enChase,
+	enAtack,
+	enLeave,
+};
+
 //static std::vector<Monster*> g_mons;
 extern int g_buddyCount;
 extern int g_enemyCount;
