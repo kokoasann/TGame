@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "pvpModeSelect.h"
 #include <string>
+#include "../GameCursor.h"
 
 #include "ModeSelect.h"
 
@@ -8,14 +9,23 @@
 
 #include "../SaveLoad/PythonFileLoad.h"
 
+#include "PMMonster.h"
+
+PvPModeSelect::~PvPModeSelect()
+{
+}
+
 bool PvPModeSelect::Start()
 {
 	m_files = PythonFileLoad::FilesLoad();
-
+	m_cursor = NewGO<GameCursor>(0, "cursor");
+	
+	m_pmm = NewGO<PMMonster>(0, "pmm");
+	m_pmm->init({ -250,-200,0 });
 	for (int i = 0; i < 6; i++)
 	{
-		SpriteRender* sp = NewGO<SpriteRender>(0, "sp");
-		sp->Init(L"Assets/sprite/mon")
+		/*SpriteRender* sp = NewGO<SpriteRender>(0, "sp");
+		sp->Init(L"Assets/sprite/mon",);*/
 	}
 	return true;
 }

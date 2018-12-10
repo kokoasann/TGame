@@ -473,6 +473,9 @@
     <ClCompile Include="Game\Title\MonsterSelect.cpp">
       <Filter>ソース ファイル\Game\Title</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Title\PMMonster.cpp">
+      <Filter>ソース ファイル\Game\Title</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\character\CharacterController.h">
@@ -1086,6 +1089,9 @@
     <ClInclude Include="Game\Title\MonsterSelect.h">
       <Filter>ソース ファイル\Game\Title</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Title\PMMonster.h">
+      <Filter>ソース ファイル\Game\Title</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\Test.FBX">
@@ -1208,6 +1214,9 @@
     </ImageContentTask>
     <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\ai_sel\ai_sel.png">
       <Filter>ソース ファイル\Game\Assets\sprite\GUI\AI_Select</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\mon_sel\mon_none.png">
+      <Filter>ソース ファイル\Game\Assets\sprite\GUI\mon_Select</Filter>
     </ImageContentTask>
   </ItemGroup>
   <ItemGroup>

@@ -253,6 +253,7 @@
     <ClCompile Include="Game\Title\AIeditModeSelect.cpp" />
     <ClCompile Include="Game\Title\ModeSelect.cpp" />
     <ClCompile Include="Game\Title\MonsterSelect.cpp" />
+    <ClCompile Include="Game\Title\PMMonster.cpp" />
     <ClCompile Include="Game\Title\pvpModeSelect.cpp" />
     <ClCompile Include="Game\Title\Title.cpp" />
     <ClCompile Include="stdafx.cpp" />
@@ -461,6 +462,7 @@
     <ClInclude Include="Game\Title\AIeditModeSelect.h" />
     <ClInclude Include="Game\Title\ModeSelect.h" />
     <ClInclude Include="Game\Title\MonsterSelect.h" />
+    <ClInclude Include="Game\Title\PMMonster.h" />
     <ClInclude Include="Game\Title\pvpModeSelect.h" />
     <ClInclude Include="Game\Title\Title.h" />
     <ClInclude Include="stdafx.h" />
@@ -474,6 +476,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Sprite\GUI\modeSelect\mon_sel\mon_back.png" />
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\mon_sel\mon_none.png" />
     <Image Include="Assets\Sprite\GUI\modeSelect\mon_sel\mon_one.png" />
     <Image Include="Assets\Sprite\GUI\modeSelect\mon_sel\mon_two.png" />
     <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\ai_sel\ai_even.png" />

@@ -1,8 +1,11 @@
 #pragma once
 
+class PMMonster;
+class GameCursor;
 class PvPModeSelect :public GameObject
 {
 public:
+	~PvPModeSelect();
 	bool Start() override;
 	void Update() override;
 	void PostRender() override;
@@ -14,5 +17,8 @@ private:
 	int curpos = 0;
 	bool sel = false;
 
+	GameCursor* m_cursor;
+
+	PMMonster* m_pmm = nullptr;
 	std::vector<SpriteRender*> m_monicon;
 };
