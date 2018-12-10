@@ -30,6 +30,8 @@ cbuffer VSPSCb : register(b0) {
 	float4x4 mProj;
 	float4 mColor[NUM_DIRECTION_LIG];
 	float4 mDirLight[NUM_DIRECTION_LIG];
+	float3 eyePos;
+	float specPow;
 };
 
 /////////////////////////////////////////////////////////////
@@ -66,6 +68,7 @@ struct PSInput {
 	float3 Normal		: NORMAL;
 	float3 Tangent		: TANGENT;
 	float2 TexCoord 	: TEXCOORD0;
+	float3 worldPos	: TEXCOORD1;
 };
 /*!
  *@brief	スキン行列を計算。
@@ -145,11 +148,27 @@ PSInput VSMainSkin(VSInputNmTxWeights In)
 //--------------------------------------------------------------------------------------
 float4 PSMain(PSInput In) : SV_Target0
 {
+	//テクスチャカラー
 	float4 albedoColor = albedoTexture.Sample(Sampler, In.TexCoord);
+	//ディレクションライト　
 	float3 lig = 0.0f;
 	for (int i = 0; i < NUM_DIRECTION_LIG; i++) {
 		lig += max(0.0f, dot(In.Normal * -1.0f, mDirLight[i])) * mColor[i];
 	}
+	//スペキュラ
+	float3 toEyeDir = normalize(eyePos - In.worldPos);
+	//視点の反射ベクトルr
+	float3 r = -toEyeDir + 2 * In.Normal * dot(toEyeDir, In.Normal);
+	//反射ベクトルとディレクションライトのベクトルの内積
+	float3 specLig;
+	float t;
+	for (int i = 0; i < NUM_DIRECTION_LIG; i++) {
+		t = max(0.0f, dot(r, -mDirLight[i]));
+		//スペキュラを絞る
+		specLig = pow(t, specPow) * mColor[i].xyz;
+		lig += specLig;
+	}
+	//lig /= 4.f;
 	float4 finalColor = float4(0.0f, 0.0f, 0.0f, 1.0f);
 	finalColor.xyz = albedoColor.xyz * lig;
 	return finalColor;

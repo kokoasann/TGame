@@ -96,6 +96,10 @@ public:
 		m_DirLight[index] = dir;
 	}
 
+	void SetSpecularPow(float pow) {
+		m_specPow = pow;
+	}
+
 private:
 	/*!
 	*@brief	サンプラステートの初期化。
@@ -122,6 +126,8 @@ private:
 		CMatrix mProj;
 		CVector4 mCol[NUM_DIRECTION_LIG];
 		CVector4 mDir[NUM_DIRECTION_LIG];
+		CVector3 eyePos;
+		float specPow;
 	};
 	EnFbxUpAxis			m_enFbxUpAxis = enFbxUpAxisZ;	//!<FBXの上方向。
 	ID3D11Buffer*		m_cb = nullptr;					//!<定数バッファ。
@@ -132,8 +138,9 @@ private:
 	ID3D11SamplerState* m_samplerState = nullptr;		//!<サンプラステート。
 	CVector4 m_DirLight[NUM_DIRECTION_LIG];// = { 0.707,-0.707,0.0f,0.0f };
 	CVector4 m_DirCol[NUM_DIRECTION_LIG];// = { 1.0f,1.0f,1.0f,1.0f };
+	float m_specPow = 10.f;
 	const char* m_vsmain;
 	const char* m_psmain;
-	//DirectionLight m_light;
+	//DirectionLight m_light;q
 };
 
