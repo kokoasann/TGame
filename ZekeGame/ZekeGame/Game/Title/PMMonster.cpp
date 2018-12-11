@@ -36,6 +36,8 @@ void PMMonster::Update()
 		{
 			m_ms = NewGO<MonsterSelect>(0, "monsterselect");
 			m_ais = NewGO<AISelect>(0, "aiselect");
+			m_ms->init(this);
+			m_ais->init(this);
 		}
 	}
 }

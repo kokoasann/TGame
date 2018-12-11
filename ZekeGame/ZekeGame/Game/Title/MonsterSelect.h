@@ -1,6 +1,7 @@
 #pragma once
 #include "../GameData.h"
 class PMMonster;
+class GameCursor;
 class MonsterSelect :public GameObject
 {
 public:
@@ -9,6 +10,8 @@ public:
 	void init(PMMonster* pmm);
 	void Update();
 private:
+	GameCursor* m_cursor = nullptr;
+
 	PMMonster* m_pmm;
 	MonsterID m_selmon = enTest;
 	SpriteRender* m_back;
@@ -16,6 +19,8 @@ private:
 
 	std::vector<SpriteRender*> m_mons;
 	CVector2 m_iconsize = { 128,128 };
+
+	std::vector<const wchar_t*> m_paths;
 
 	int m_monstercount = 2;
 };
