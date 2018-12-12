@@ -29,10 +29,10 @@ Game::~Game()
 	delete m_pi;
 }
 
-void Game::GamePVPmodeInit(std::vector<std::string> files, int monsterAI[6])
+void Game::GamePVPmodeInit(std::vector<std::string> files, int monsterAI[6],MonsterID MonsterID[6])
 {
 	ss = new StageSetup();
-	ss->PVPSetup(files, monsterAI);
+	ss->PVPSetup(files, monsterAI,MonsterID);
 	playMode = enLocalPVP;
 }
 

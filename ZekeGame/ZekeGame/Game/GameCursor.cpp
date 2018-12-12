@@ -10,7 +10,7 @@ GameCursor::~GameCursor()
 
 bool GameCursor::Start()
 {
-	m_cursor = NewGO<SpriteRender>(0, "cursor");
+	m_cursor = NewGO<SpriteRender>(31, "cursor");
 	m_cursor->Init(L"Assets/Sprite/cursor.dds", 80, 80);
 	m_cursor->SetPosition(m_pos);
 	m_cursor->SetPivot({ 0,1 });
