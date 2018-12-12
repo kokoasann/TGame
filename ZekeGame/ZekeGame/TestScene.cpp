@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "GameCamera.h"
+#include "Engine/graphics/font/FontRender.h"
 #include "TestScene.h"
 
 
@@ -25,6 +26,8 @@ bool TestScene::Start() {
 	m_skinModel->SetRotation(rot);
 	m_skinModel->SetScale({ 30.f,30.f,30.f });
 	m_skinModel->SetFbxUpAxis(enFbxUpAxisY);
+	//font
+	//m_font = NewGO<FontRender>(0, "testfont");
 	m_camera = new GameCamera;
 	return true;
 }
