@@ -22,7 +22,6 @@ bool PvPModeSelect::Start()
 	
 	m_pmm = NewGO<PMMonster>(0, "pmm");
 	m_pmm->init({ -250,-200,0 });
-	m_pmm->SetPython(L"asdffasdffssdfas");
 	for (int i = 0; i < 6; i++)
 	{
 		/*SpriteRender* sp = NewGO<SpriteRender>(0, "sp");

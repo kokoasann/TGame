@@ -1,11 +1,18 @@
 #include "stdafx.h"
 #include "AISelect.h"
+#include "PMMonster.h"
 #include <string>
 #include "pvpModeSelect.h"
 #include "../GameCursor.h"
+#include "IconAI.h"
 
 AISelect::~AISelect()
 {
+	DeleteGO(m_back);
+	for (auto ia : m_icons)
+	{
+		DeleteGO(ia);
+	}
 }
 
 bool AISelect::Start()
@@ -18,37 +25,33 @@ bool AISelect::Start()
 	m_ppms = FindGO<PvPModeSelect>("pvp");
 	int count = m_ppms->GetFiles().size();
 
-	CVector3 pos = { -640,355,0 };
+	CVector3 pos = { -454,316.5f,0 };
 	for (int i = 0; i < count; i++)
 	{
-		SpriteRender* sp = NewGO<SpriteRender>(0, "sp");
-		if (((i + 1) % 2) == 0)
-			sp->Init(L"Assets/sprite/ai_even.dds", 372, 77,true);
-		else
-			sp->Init(L"Assets/sprite/ai_odd.dds", 372, 77,true);
-		sp->SetPivot({ 0,1 });
-		sp->SetPosition(pos);
+		IconAI* ia = NewGO<IconAI>(0, "ia");
+		ia->init(nullptr, i, m_cursor);
+		ia->Setpos(pos);
+		m_icons.push_back(ia);
+
 		pos.y -= 82;
-		m_AIs.push_back(sp);
 	}
 	return true;
 }
 
 void AISelect::init(PMMonster * pmm)
 {
+	m_pmm = pmm;
 }
 
 void AISelect::Update()
 {
-	for (auto sp : m_AIs)
+	for (int i = 0;i < m_icons.size();i++)
 	{
-		sp->SetCollisionTarget(m_cursor->GetCursor());
-		if (sp->isCollidingTarget())
+		if (m_icons[i]->isClick())
 		{
-			if (Mouse::isTrigger(enLeftClick))
-			{
-				
-			}
+			std::string st = m_ppms->GetFiles()[i];
+			std::wstring ws = std::wstring(st.begin(), st.end());
+			m_pmm->SetPython(ws.c_str());
 		}
 	}
 }
@@ -56,11 +59,10 @@ void AISelect::Update()
 void AISelect::PostRender()
 {
 	font.Begin();
-
-	for (int i = 0;i < m_AIs.size();i++)
+	for (int i = 0; i < m_icons.size(); i++)
 	{
-		CVector3 pos = m_AIs[i]->GetPosition();
-		
+		CVector3 pos = m_icons[i]->Getpos();
+
 		std::string st = m_ppms->GetFiles()[i];
 		std::wstring ws = std::wstring(st.begin(), st.end());
 

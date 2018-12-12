@@ -3,6 +3,7 @@
 class PvPModeSelect;
 class GameCursor;
 class PMMonster;
+class IconAI;
 class AISelect :public GameObject
 {
 public:
@@ -16,7 +17,7 @@ private:
 	GameCursor* m_cursor = nullptr;
 	SpriteRender* m_back = nullptr;
 
-	std::vector<SpriteRender*> m_AIs;
+	std::vector<IconAI*> m_icons;
 	PvPModeSelect* m_ppms = nullptr;
 	CFont font;
 };

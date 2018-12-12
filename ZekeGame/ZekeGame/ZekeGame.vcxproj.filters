@@ -149,7 +149,6 @@
     </Filter>
     <Filter Include="ソース ファイル\Game\Result\Lose">
       <UniqueIdentifier>{c3a65b09-1a1c-4b5a-804d-35a07914637e}</UniqueIdentifier>
-
     </Filter>
     <Filter Include="ソース ファイル\Game\Assets\sprite\GUI\modeSelect\AImodeselect">
       <UniqueIdentifier>{127fb30d-8322-4520-b4ff-364bc2f61c61}</UniqueIdentifier>
@@ -159,6 +158,9 @@
     </Filter>
     <Filter Include="ソース ファイル\Game\Assets\sprite\GUI\mon_Select">
       <UniqueIdentifier>{32db8f8b-2aa9-42b5-aefc-6b545ba5c32c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Title\select">
+      <UniqueIdentifier>{2b33cc4d-b30b-4d81-a7de-2d39b90eebcd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -468,30 +470,23 @@
     <ClCompile Include="Game\Title\AIeditModeSelect.cpp">
       <Filter>ソース ファイル\Game\Title</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Title\MonsterSelect.cpp">
-      <Filter>ソース ファイル\Game\Title</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Title\PMMonster.cpp">
-      <Filter>ソース ファイル\Game\Title</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\HID\Mouse.cpp">
       <Filter>ソース ファイル\Engine\HID</Filter>
     </ClCompile>
     <ClCompile Include="Game\Title\AISelect.cpp">
-      <Filter>ソース ファイル\Game\Title</Filter>
-      <Filter>ソース ファイル\Engine\graphics\sprite</Filter>
+      <Filter>ソース ファイル\Game\Title\select</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\HID\Mouse.cpp">
-      <Filter>ソース ファイル\Engine\HID</Filter>
+    <ClCompile Include="Game\Title\IconMon.cpp">
+      <Filter>ソース ファイル\Game\Title\select</Filter>
     </ClCompile>
-    <ClCompile Include="Game\AIEdit\AIEditLine.cpp">
-      <Filter>ソース ファイル\Game\AIEdit</Filter>
+    <ClCompile Include="Game\Title\MonsterSelect.cpp">
+      <Filter>ソース ファイル\Game\Title\select</Filter>
     </ClCompile>
-    <ClCompile Include="Game\AIEdit\AIEditNode.cpp">
-      <Filter>ソース ファイル\Game\AIEdit</Filter>
+    <ClCompile Include="Game\Title\PMMonster.cpp">
+      <Filter>ソース ファイル\Game\Title\select</Filter>
     </ClCompile>
-    <ClCompile Include="Game\AIEdit\AIEditNodeHp.cpp">
-      <Filter>ソース ファイル\Game\AIEdit</Filter>
+    <ClCompile Include="Game\Title\IconAI.cpp">
+      <Filter>ソース ファイル\Game\Title\select</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1095,7 +1090,6 @@
     <ClInclude Include="Game\Result\ResultCamera.h">
       <Filter>ソース ファイル\Game\Result</Filter>
     </ClInclude>
-
     <ClInclude Include="Engine\physics\SpriteBoxCollider.h" />
     <ClInclude Include="Game\AIEdit\AIEditLine.h" />
     <ClInclude Include="Game\AIEdit\AIEditNode.h" />
@@ -1103,33 +1097,23 @@
     <ClInclude Include="Game\Title\AIeditModeSelect.h">
       <Filter>ソース ファイル\Game\Title</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Title\MonsterSelect.h">
-      <Filter>ソース ファイル\Game\Title</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Title\PMMonster.h">
-      <Filter>ソース ファイル\Game\Title</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\HID\Mouse.h">
       <Filter>ソース ファイル\Engine\HID</Filter>
     </ClInclude>
     <ClInclude Include="Game\Title\AISelect.h">
-      <Filter>ソース ファイル\Game\Title</Filter>
-
-    <ClInclude Include="Engine\physics\SpriteBoxCollider.h">
-      <Filter>ソース ファイル\Engine\graphics\sprite</Filter>
+      <Filter>ソース ファイル\Game\Title\select</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\HID\Mouse.h">
-      <Filter>ソース ファイル\Engine\HID</Filter>
+    <ClInclude Include="Game\Title\IconMon.h">
+      <Filter>ソース ファイル\Game\Title\select</Filter>
     </ClInclude>
-    <ClInclude Include="Game\AIEdit\AIEditNodeHp.h">
-      <Filter>ソース ファイル\Game\AIEdit</Filter>
+    <ClInclude Include="Game\Title\MonsterSelect.h">
+      <Filter>ソース ファイル\Game\Title\select</Filter>
     </ClInclude>
-    <ClInclude Include="Game\AIEdit\AIEditLine.h">
-      <Filter>ソース ファイル\Game\AIEdit</Filter>
+    <ClInclude Include="Game\Title\PMMonster.h">
+      <Filter>ソース ファイル\Game\Title\select</Filter>
     </ClInclude>
-    <ClInclude Include="Game\AIEdit\AIEditNode.h">
-      <Filter>ソース ファイル\Game\AIEdit</Filter>
-
+    <ClInclude Include="Game\Title\IconAI.h">
+      <Filter>ソース ファイル\Game\Title\select</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1197,7 +1181,6 @@
     <ImageContentTask Include="Assets\Sprite\kariline.png">
       <Filter>リソース ファイル</Filter>
     </ImageContentTask>
-
     <ImageContentTask Include="Assets\Sprite\Mp.png">
       <Filter>リソース ファイル</Filter>
     </ImageContentTask>
@@ -1257,19 +1240,9 @@
     </ImageContentTask>
     <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\mon_sel\mon_two.png">
       <Filter>ソース ファイル\Game\Assets\sprite\GUI\mon_Select</Filter>
-
-    <ImageContentTask Include="Assets\Sprite\karipoint.png">
-      <Filter>ソース ファイル\Game\Assets\sprite\GUI</Filter>
     </ImageContentTask>
-    <ImageContentTask Include="Assets\Sprite\Hp.png">
-      <Filter>ソース ファイル\Game\Assets\sprite\GUI</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="Assets\Sprite\winkari.png">
-      <Filter>ソース ファイル\Game\Assets\sprite\GUI</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="Assets\Sprite\Mp.png">
-      <Filter>ソース ファイル\Game\Assets\sprite\GUI</Filter>
-
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\mon_sel\mon_frame.png">
+      <Filter>ソース ファイル\Game\Assets\sprite\GUI\mon_Select</Filter>
     </ImageContentTask>
   </ItemGroup>
   <ItemGroup>
