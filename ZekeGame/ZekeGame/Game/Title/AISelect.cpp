@@ -19,7 +19,7 @@ bool AISelect::Start()
 {
 	m_cursor = FindGO<GameCursor>("cursor");
 
-	m_back = NewGO<SpriteRender>(0, "sp");
+	m_back = NewGO<SpriteRender>(3, "sp");
 	m_back->Init(L"Assets/sprite/ai_main.dds", 1280, 720,true);
 	
 	m_ppms = FindGO<PvPModeSelect>("pvp");
@@ -51,7 +51,7 @@ void AISelect::Update()
 		{
 			std::string st = m_ppms->GetFiles()[i];
 			std::wstring ws = std::wstring(st.begin(), st.end());
-			m_pmm->SetPython(ws.c_str());
+			m_pmm->SetPython(ws.c_str(),i);
 		}
 	}
 }

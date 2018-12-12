@@ -20,24 +20,57 @@ bool PvPModeSelect::Start()
 	m_files = PythonFileLoad::FilesLoad();
 	m_cursor = NewGO<GameCursor>(0, "cursor");
 	
-	m_pmm = NewGO<PMMonster>(0, "pmm");
-	m_pmm->init({ -250,-200,0 });
+	CVector3 pos = { -320,210,0 };
+	for (int i = 0; i < 6; i++)
+	{
+		if (i == 3)
+		{
+			pos = { -320,-200,0 };
+		}
+		PMMonster* pmm = NewGO<PMMonster>(0, "pmm");
+		pmm->init(i,pos);
+		pos += {240, 0, 0};
+		m_pmms.push_back(pmm);
+	}
+	//m_pmm = NewGO<PMMonster>(0, "pmm");
+	//m_pmm->init({ -250,-200,0 });
 	for (int i = 0; i < 6; i++)
 	{
 		/*SpriteRender* sp = NewGO<SpriteRender>(0, "sp");
 		sp->Init(L"Assets/sprite/mon",);*/
 	}
+
+	m_GO = NewGO<SpriteRender>(0, "sp");
+	m_GO->Init(L"Assets/sprite/GO.dds", 193, 93, true);
+	m_GO->SetPosition({ 280,-160,0 });
+
 	return true;
 }
 
 void PvPModeSelect::Update()
 {
+	m_GO->SetCollisionTarget(m_cursor->GetCursor());
+	if (m_GO->isCollidingTarget())
+	{
+		if (Mouse::isTrigger(enLeftClick))
+		{
+			MonsterID moid[6];
+			for (int i = 0;i < 6;i++)
+			{
+				moid[i] = (MonsterID)m_pmms[i]->GetMonsterID();
+				monai[i] = m_pmms[i]->GetAI();
+			}
+			Game* game = NewGO<Game>(0, "Game");
+			game->GamePVPmodeInit(m_files, monai,moid);
+			DeleteGO(this);
+		}
+	}
 	if (g_pad[0].IsTrigger(enButtonA))
 	{
 		if (curpos == 6)
 		{
 			Game* game = NewGO<Game>(0, "Game");
-			game->GamePVPmodeInit(m_files, monai);
+			//game->GamePVPmodeInit(m_files, monai);
 			DeleteGO(this);
 		}
 		else if (!sel)

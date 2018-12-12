@@ -19,7 +19,7 @@ void IconAI::init(const wchar_t * py,int num,GameCursor* cursor)
 	m_cursor = cursor;
 	m_py = py;
 	m_num = num;
-	m_frame = NewGO<SpriteRender>(1, "sp");
+	m_frame = NewGO<SpriteRender>(4, "sp");
 	if (((m_num + 1) % 2) == 0)
 		m_frame->Init(L"Assets/sprite/ai_even.dds", 372, 77);
 	else

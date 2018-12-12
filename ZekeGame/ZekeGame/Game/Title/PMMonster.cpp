@@ -25,15 +25,35 @@ bool PMMonster::Start()
 	return true;
 }
 
-void PMMonster::init(CVector3 pos)
+void PMMonster::init(int num,CVector3 pos)
 {
+	m_num = num;
 	m_mon->SetPosition(pos);
 	m_frame->SetPosition(pos);
 }
 
 void PMMonster::Update()
 {
+	if (m_ismonsel && Mouse::isTrigger(enRightClick))
+	{
+		DeleteGO(m_ms);
+		DeleteGO(m_ais);
+		m_ismonsel = false;
+	}
+	bool isothersel = false;
+	QueryGOs<PMMonster>("pmm", [&](PMMonster* pmm)->bool
+	{
+		if (pmm->isMonSel())
+		{
+			isothersel = true;
+			return false;
+		}
+		return true;
+	});
+	if (isothersel)
+		return;
 	m_mon->SetCollisionTarget(m_cursor->GetCursor());
+	
 	if (!m_ismonsel && m_mon->isCollidingTarget())
 	{
 		if (!m_issel)
@@ -59,12 +79,7 @@ void PMMonster::Update()
 			m_issel = false;
 		}
 	}
-	if (m_ismonsel && Mouse::isTrigger(enRightClick))
-	{
-		DeleteGO(m_ms);
-		DeleteGO(m_ais);
-		m_ismonsel = false;
-	}
+	
 
 }
 
@@ -74,8 +89,9 @@ void PMMonster::ChengeImage(const wchar_t* path, int monid)
 	m_monid = (MonsterID)monid;
 }
 
-void PMMonster::SetPython(const wchar_t * py)
+void PMMonster::SetPython(const wchar_t * py,int num)
 {
+	m_selAI = num;
 	for (int i = 0; i < 16; i++)
 	{
 		m_python[i] = py[i];

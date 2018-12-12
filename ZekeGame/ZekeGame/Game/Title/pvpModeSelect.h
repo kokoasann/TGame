@@ -25,5 +25,8 @@ private:
 	GameCursor* m_cursor;
 
 	PMMonster* m_pmm = nullptr;
+	std::vector<PMMonster*> m_pmms;
 	std::vector<SpriteRender*> m_monicon;
+
+	SpriteRender* m_GO = nullptr;
 };
