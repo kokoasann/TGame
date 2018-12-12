@@ -40,7 +40,7 @@
 #include "physics/SpriteBoxCollider.h"
 #include "Engine/graphics/SpriteRender.h"
 #include "Engine/graphics/font/CFONT.h"
-
+#include "graphics/font/FontRender.h"
 #include "Engine/graphics/animation/Animation.h"
 #include "Engine/graphics/animation/AnimationClip.h"
 #include "Engine/graphics/Camera.h"
