@@ -149,6 +149,16 @@
     </Filter>
     <Filter Include="ソース ファイル\Game\Result\Lose">
       <UniqueIdentifier>{c3a65b09-1a1c-4b5a-804d-35a07914637e}</UniqueIdentifier>
+
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Assets\sprite\GUI\modeSelect\AImodeselect">
+      <UniqueIdentifier>{127fb30d-8322-4520-b4ff-364bc2f61c61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Assets\sprite\GUI\AI_Select">
+      <UniqueIdentifier>{bed1b48f-5739-44eb-aef8-521be3b23063}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Assets\sprite\GUI\mon_Select">
+      <UniqueIdentifier>{32db8f8b-2aa9-42b5-aefc-6b545ba5c32c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -444,6 +454,31 @@
       <Filter>ソース ファイル\Game\Result</Filter>
     </ClCompile>
     <ClCompile Include="Engine\physics\SpriteBoxCollider.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\AIEdit\AIEditLine.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\AIEdit\AIEditNode.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\AIEdit\AIEditNodeHp.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Title\AIeditModeSelect.cpp">
+      <Filter>ソース ファイル\Game\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Title\MonsterSelect.cpp">
+      <Filter>ソース ファイル\Game\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Title\PMMonster.cpp">
+      <Filter>ソース ファイル\Game\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\HID\Mouse.cpp">
+      <Filter>ソース ファイル\Engine\HID</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Title\AISelect.cpp">
+      <Filter>ソース ファイル\Game\Title</Filter>
       <Filter>ソース ファイル\Engine\graphics\sprite</Filter>
     </ClCompile>
     <ClCompile Include="Engine\HID\Mouse.cpp">
@@ -1066,6 +1101,26 @@
     <ClInclude Include="Game\Result\ResultCamera.h">
       <Filter>ソース ファイル\Game\Result</Filter>
     </ClInclude>
+
+    <ClInclude Include="Engine\physics\SpriteBoxCollider.h" />
+    <ClInclude Include="Game\AIEdit\AIEditLine.h" />
+    <ClInclude Include="Game\AIEdit\AIEditNode.h" />
+    <ClInclude Include="Game\AIEdit\AIEditNodeHp.h" />
+    <ClInclude Include="Game\Title\AIeditModeSelect.h">
+      <Filter>ソース ファイル\Game\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Title\MonsterSelect.h">
+      <Filter>ソース ファイル\Game\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Title\PMMonster.h">
+      <Filter>ソース ファイル\Game\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\HID\Mouse.h">
+      <Filter>ソース ファイル\Engine\HID</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Title\AISelect.h">
+      <Filter>ソース ファイル\Game\Title</Filter>
+
     <ClInclude Include="Engine\physics\SpriteBoxCollider.h">
       <Filter>ソース ファイル\Engine\graphics\sprite</Filter>
     </ClInclude>
@@ -1080,6 +1135,7 @@
     </ClInclude>
     <ClInclude Include="Game\AIEdit\AIEditNode.h">
       <Filter>ソース ファイル\Game\AIEdit</Filter>
+
     </ClInclude>
     <ClInclude Include="Engine\graphics\SkinModelDummy.h">
       <Filter>ソース ファイル\Engine\graphics</Filter>
@@ -1153,6 +1209,67 @@
     <ImageContentTask Include="Assets\Sprite\kariline.png">
       <Filter>リソース ファイル</Filter>
     </ImageContentTask>
+
+    <ImageContentTask Include="Assets\Sprite\Mp.png">
+      <Filter>リソース ファイル</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\Sprite\karipoint.png">
+      <Filter>リソース ファイル</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\Sprite\winkari.png">
+      <Filter>リソース ファイル</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\Sprite\Hp.png">
+      <Filter>リソース ファイル</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\easyeditG.png">
+      <Filter>ソース ファイル\Game\Assets\sprite\GUI\modeSelect\AImodeselect</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\easyeditW.png">
+      <Filter>ソース ファイル\Game\Assets\sprite\GUI\modeSelect\AImodeselect</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\pythoneditG.png">
+      <Filter>ソース ファイル\Game\Assets\sprite\GUI\modeSelect\AImodeselect</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\pythoneditW.png">
+      <Filter>ソース ファイル\Game\Assets\sprite\GUI\modeSelect\AImodeselect</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\dungeonG.png">
+      <Filter>ソース ファイル\Game\Assets\sprite\GUI\modeSelect\AImodeselect</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\dungeonW.png">
+      <Filter>ソース ファイル\Game\Assets\sprite\GUI\modeSelect\AImodeselect</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\kanshouW.png">
+      <Filter>ソース ファイル\Game\Assets\sprite\GUI\modeSelect\AImodeselect</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\kanshouG.png">
+      <Filter>ソース ファイル\Game\Assets\sprite\GUI\modeSelect\AImodeselect</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\ai_sel\ai_even.png">
+      <Filter>ソース ファイル\Game\Assets\sprite\GUI\AI_Select</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\ai_sel\ai_main.png">
+      <Filter>ソース ファイル\Game\Assets\sprite\GUI\AI_Select</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\ai_sel\ai_odd.png">
+      <Filter>ソース ファイル\Game\Assets\sprite\GUI\AI_Select</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\ai_sel\ai_sel.png">
+      <Filter>ソース ファイル\Game\Assets\sprite\GUI\AI_Select</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\mon_sel\mon_none.png">
+      <Filter>ソース ファイル\Game\Assets\sprite\GUI\mon_Select</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\mon_sel\mon_back.png">
+      <Filter>ソース ファイル\Game\Assets\sprite\GUI\mon_Select</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\mon_sel\mon_one.png">
+      <Filter>ソース ファイル\Game\Assets\sprite\GUI\mon_Select</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\Sprite\GUI\modeSelect\mon_sel\mon_two.png">
+      <Filter>ソース ファイル\Game\Assets\sprite\GUI\mon_Select</Filter>
+
     <ImageContentTask Include="Assets\Sprite\karipoint.png">
       <Filter>ソース ファイル\Game\Assets\sprite\GUI</Filter>
     </ImageContentTask>
@@ -1164,6 +1281,7 @@
     </ImageContentTask>
     <ImageContentTask Include="Assets\Sprite\Mp.png">
       <Filter>ソース ファイル\Game\Assets\sprite\GUI</Filter>
+
     </ImageContentTask>
   </ItemGroup>
   <ItemGroup>
