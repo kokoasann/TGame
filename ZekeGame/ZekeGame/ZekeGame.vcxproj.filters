@@ -499,6 +499,9 @@
     <ClCompile Include="TestScene.cpp">
       <Filter>ソース ファイル\Game</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\graphics\font\FontRender.cpp">
+      <Filter>ソース ファイル\Engine\graphics\Font</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\character\CharacterController.h">
@@ -1142,6 +1145,9 @@
     </ClInclude>
     <ClInclude Include="TestScene.h">
       <Filter>ソース ファイル\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\graphics\font\FontRender.h">
+      <Filter>ソース ファイル\Engine\graphics\Font</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

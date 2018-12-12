@@ -178,6 +178,7 @@
     <ClCompile Include="Engine\graphics\Effect\CEffect.cpp" />
     <ClCompile Include="Engine\graphics\Effect\CEffectEngine.cpp" />
     <ClCompile Include="Engine\graphics\font\CFONT.cpp" />
+    <ClCompile Include="Engine\graphics\font\FontRender.cpp" />
     <ClCompile Include="Engine\graphics\GPUBuffer\CGPUBuffer.cpp" />
     <ClCompile Include="Engine\graphics\GraphicsEngine.cpp" />
     <ClCompile Include="Engine\graphics\RenderTarget.cpp" />
@@ -287,6 +288,7 @@
     <ClInclude Include="Engine\graphics\Effect\CEffect.h" />
     <ClInclude Include="Engine\graphics\Effect\CEffectEngine.h" />
     <ClInclude Include="Engine\graphics\font\CFONT.h" />
+    <ClInclude Include="Engine\graphics\font\FontRender.h" />
     <ClInclude Include="Engine\graphics\GPUBuffer\CGPUBuffer.h" />
     <ClInclude Include="Engine\graphics\GraphicsEngine.h" />
     <ClInclude Include="Engine\graphics\Noncopyable.h" />
