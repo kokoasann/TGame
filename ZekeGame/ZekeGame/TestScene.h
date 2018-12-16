@@ -9,4 +9,5 @@ public:
 private:
 	SkinModelRender* m_skinModel;
 	GameCamera* m_camera;
+	CQuaternion m_rot = CQuaternion::Identity();
 };

@@ -150,6 +150,9 @@
     <Filter Include="ソース ファイル\Game\Result\Lose">
       <UniqueIdentifier>{c3a65b09-1a1c-4b5a-804d-35a07914637e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Engine\graphics\modelData">
+      <UniqueIdentifier>{78570172-9415-45e1-923f-c85e1b4d708a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\character\CharacterController.cpp">
@@ -1103,6 +1106,9 @@
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\uma\uma.fbx">
       <Filter>ソース ファイル\Game\Assets\modelData\uma</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\RenderTest\Octane.FBX">
+      <Filter>ソース ファイル\Engine\graphics\modelData</Filter>
     </MeshContentTask>
   </ItemGroup>
   <ItemGroup>

@@ -466,6 +466,7 @@
     <ClInclude Include="TestScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <MeshContentTask Include="Assets\modelData\RenderTest\Octane.FBX" />
     <MeshContentTask Include="Assets\modelData\stage\map.FBX" />
     <MeshContentTask Include="Assets\modelData\Test.FBX" />
     <MeshContentTask Include="Assets\modelData\testMons\tesEnemy2.fbx" />
