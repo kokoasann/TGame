@@ -9,7 +9,6 @@ RenderTarget::RenderTarget()
 
 RenderTarget::~RenderTarget()
 {
-	ReleaseRenderTarget();
 }
 
 void RenderTarget::Create(unsigned int w, unsigned int h, DXGI_FORMAT texFormat) {
@@ -64,6 +63,14 @@ void RenderTarget::Create(unsigned int w, unsigned int h, DXGI_FORMAT texFormat)
 		depthStencilViewDesc.Flags = 0;
 		d3dDevice->CreateDepthStencilView(m_depthStencilTex, &depthStencilViewDesc, &m_depthStencilView);
 	}
+	{
+		m_viewport.TopLeftX = 0;
+		m_viewport.TopLeftY = 0;
+		m_viewport.Width = w;
+		m_viewport.Height = h;
+		m_viewport.MinDepth = 0.0f;
+		m_viewport.MaxDepth = 1.0f;
+	}
 }
 
 void RenderTarget::ReleaseRenderTarget() {
@@ -88,3 +95,11 @@ void RenderTarget::ReleaseRenderTarget() {
 		m_renderTargetSRV->Release();
 	}
 }
+
+void RenderTarget::ClearRenderTarget(float* clearColor)
+{
+	auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
+	d3dDeviceContext->ClearRenderTargetView(m_renderTargetView, clearColor);
+	d3dDeviceContext->ClearDepthStencilView(m_depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+}
+

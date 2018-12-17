@@ -470,6 +470,9 @@
     <ClCompile Include="Engine\graphics\font\FontRender.cpp">
       <Filter>ソース ファイル\Engine\graphics\Font</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\graphics\ShadowMap.cpp">
+      <Filter>ソース ファイル\Engine\graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\character\CharacterController.h">
@@ -1095,6 +1098,9 @@
     </ClInclude>
     <ClInclude Include="Engine\graphics\font\FontRender.h">
       <Filter>ソース ファイル\Engine\graphics\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\graphics\ShadowMap.h">
+      <Filter>ソース ファイル\Engine\graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

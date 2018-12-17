@@ -12,14 +12,22 @@ protected:
 	Shader* m_pPSShader = nullptr;
 	Shader m_vsShader;
 	Shader m_psShader;
+	Shader m_vsShadowMap;			//シャドウマップ生成用の頂点シェーダー。
+	Shader m_psShadowMap;		//シャドウマップ生成用のピクセルシェーダー。
 	bool isSkining;
 	ID3D11ShaderResourceView* m_albedoTex = nullptr;
+	//std::array<ID3D11ShaderResourceView*, 4> m_albedoTextureStack = { nullptr };
+	int m_albedoTextureStackPos = 0;
+	EnRenderMode m_renderMode = enRenderMode_Invalid;	//レンダリングモード。
 
 public:
 	ModelEffect(const char* psmain, const char* vsmain)
 	{
 		m_psShader.Load("Assets/shader/model.fx", psmain, Shader::EnType::PS);
 		m_pPSShader = &m_psShader;
+
+		m_psShadowMap.Load("Assets/shader/model.fx", "PSMain_ShadowMap", Shader::EnType::PS);
+		m_vsShadowMap.Load("Assets/shader/model.fx", "VSMain_ShadowMap", Shader::EnType::VS);
 	}
 	virtual ~ModelEffect()
 	{

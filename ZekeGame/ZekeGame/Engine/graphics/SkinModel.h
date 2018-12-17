@@ -51,14 +51,10 @@ public:
 		return m_skeleton.GetBone(boneId);
 	}
 	void FindVertexPosition(std::function<void(CVector3* pos)>func);
-	/*!
-	*@brief	モデルを描画。
-	*@param[in]	viewMatrix		カメラ行列。
-	*  ワールド座標系の3Dモデルをカメラ座標系に変換する行列です。
-	*@param[in]	projMatrix		プロジェクション行列。
-	*  カメラ座標系の3Dモデルをスクリーン座標系に変換する行列です。
-	*/
+	
 	void Draw(CMatrix viewMatrix, CMatrix projMatrix);
+
+	void Draw(EnRenderMode renderMode, CMatrix viewMatrix, CMatrix projMatrix);
 
 	void Draw();
 	/*!
@@ -116,6 +112,11 @@ private:
 	void InitSkeleton(const wchar_t* filePath);
 	//ディレクションライトの初期化
 	void InitDirectionLight();
+
+	void SetRenderMode(EnRenderMode renderMode)
+	{
+		m_renderMode = renderMode;
+	}
 private:
 	static const int NUM_DIRECTION_LIG = 4;
 
@@ -128,6 +129,9 @@ private:
 		CVector4 mDir[NUM_DIRECTION_LIG];
 		CVector3 eyePos;
 		float specPow;
+		CMatrix mLightView;		//todo ライトビュー行列。
+		CMatrix mLightProj;		//todo ライトプロジェクション行列。
+		int isShadowReciever;	//todo シャドウレシーバーのフラグ。
 	};
 	EnFbxUpAxis			m_enFbxUpAxis = enFbxUpAxisZ;	//!<FBXの上方向。
 	ID3D11Buffer*		m_cb = nullptr;					//!<定数バッファ。
@@ -141,6 +145,8 @@ private:
 	float m_specPow = 10.f;
 	const char* m_vsmain;
 	const char* m_psmain;
+	bool m_isShadowReciever = true;
+	EnRenderMode m_renderMode = enRenderMode_Invalid;	//レンダリングモード。
 	//DirectionLight m_light;q
 };
 

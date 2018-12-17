@@ -185,6 +185,7 @@
     <ClCompile Include="Engine\graphics\Shader.cpp" />
     <ClCompile Include="Engine\graphics\ShaderResouceView.cpp" />
     <ClCompile Include="Engine\graphics\ShaderResources.cpp" />
+    <ClCompile Include="Engine\graphics\ShadowMap.cpp" />
     <ClCompile Include="Engine\graphics\Skelton.cpp" />
     <ClCompile Include="Engine\graphics\SkinModel.cpp" />
     <ClCompile Include="Engine\graphics\SkinModelDataManager.cpp" />
@@ -292,6 +293,7 @@
     <ClInclude Include="Engine\graphics\Shader.h" />
     <ClInclude Include="Engine\graphics\ShaderResouceView.h" />
     <ClInclude Include="Engine\graphics\ShaderResources.h" />
+    <ClInclude Include="Engine\graphics\ShadowMap.h" />
     <ClInclude Include="Engine\graphics\Skelton.h" />
     <ClInclude Include="Engine\graphics\SkinModel.h" />
     <ClInclude Include="Engine\graphics\SkinModelDataManager.h" />
