@@ -8,6 +8,8 @@ public:
 	void Update();
 private:
 	SkinModelRender* m_skinModel;
+	SkinModelRender* m_bg;
 	GameCamera* m_camera;
 	CQuaternion m_rot = CQuaternion::Identity();
+	CVector3 pos = CVector3::Zero();
 };

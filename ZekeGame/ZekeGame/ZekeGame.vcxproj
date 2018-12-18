@@ -185,6 +185,7 @@
     <ClCompile Include="Engine\graphics\Shader.cpp" />
     <ClCompile Include="Engine\graphics\ShaderResouceView.cpp" />
     <ClCompile Include="Engine\graphics\ShaderResources.cpp" />
+    <ClCompile Include="Engine\graphics\ShadowMap.cpp" />
     <ClCompile Include="Engine\graphics\Skelton.cpp" />
     <ClCompile Include="Engine\graphics\SkinModel.cpp" />
     <ClCompile Include="Engine\graphics\SkinModelDataManager.cpp" />
@@ -296,6 +297,7 @@
     <ClInclude Include="Engine\graphics\Shader.h" />
     <ClInclude Include="Engine\graphics\ShaderResouceView.h" />
     <ClInclude Include="Engine\graphics\ShaderResources.h" />
+    <ClInclude Include="Engine\graphics\ShadowMap.h" />
     <ClInclude Include="Engine\graphics\Skelton.h" />
     <ClInclude Include="Engine\graphics\SkinModel.h" />
     <ClInclude Include="Engine\graphics\SkinModelDataManager.h" />
@@ -481,6 +483,7 @@
     <MeshContentTask Include="Assets\modelData\Test.FBX" />
     <MeshContentTask Include="Assets\modelData\testMons\tesEnemy2.fbx" />
     <MeshContentTask Include="Assets\modelData\testMons\tesEnemy3.fbx" />
+    <MeshContentTask Include="Assets\modelData\testtt.FBX" />
     <MeshContentTask Include="Assets\modelData\uma\uma.fbx" />
   </ItemGroup>
   <ItemGroup>
@@ -505,6 +508,7 @@
     <ImageContentTask Include="Assets\Sprite\karipoint.png" />
     <ImageContentTask Include="Assets\Sprite\winkari.png" />
     <Image Include="Assets\modelData\boxTex.png" />
+    <Image Include="Assets\modelData\p0305_m.png" />
     <Image Include="Assets\modelData\stage\handle010.jpg" />
     <Image Include="Assets\modelData\testMons\asu.png" />
     <ImageContentTask Include="Assets\Sprite\Hp.png">

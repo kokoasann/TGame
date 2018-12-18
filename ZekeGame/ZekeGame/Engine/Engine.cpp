@@ -21,7 +21,7 @@ void Engine::Init(HINSTANCE hInstance,
 	int nCmdShow) {
 	//SetCurrentDirectory("Resource");
 	InitWindow(hInstance, hPrevInstance, lpCmdLine, nCmdShow, "Game");
-	GameObjectManager().Init(32);
+	IGameObjectManager().Init(32);
 	FPS = new CFPSCounter(10);
 }
 
@@ -41,7 +41,7 @@ void Engine::Update() {
 		m_network->Update();
 	}
 
-	GameObjectManager().Execute();
+	IGameObjectManager().Execute();
 	//output frame late to debug message
 	char message[256];
 	float fps = FPS->GetFPS();

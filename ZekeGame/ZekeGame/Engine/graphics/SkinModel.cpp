@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "SkinModel.h"
 #include "SkinModelDataManager.h"
+#include "SkinModelEffect.h"
 
 SkinModel::~SkinModel()
 {
@@ -161,6 +162,60 @@ void SkinModel::Draw(CMatrix viewMatrix, CMatrix projMatrix)
 		m_worldMatrix,
 		viewMatrix,
 		projMatrix
+	);
+}
+
+void SkinModel::Draw(EnRenderMode renderMode, CMatrix viewMatrix, CMatrix projMatrix)
+{
+	auto deviceContext = g_graphicsEngine->GetD3DDeviceContext();
+	DirectX::CommonStates state(g_graphicsEngine->GetD3DDevice());
+
+	//auto shadowMap = g_game->GetShadowMap();
+	auto shadowMap = IGameObjectManager().GetShadowMap();
+	//定数バッファを更新。
+	SVSConstantBuffer modelFxCb;
+	modelFxCb.mWorld = m_worldMatrix;
+	modelFxCb.mProj = projMatrix;
+	modelFxCb.mView = viewMatrix;
+	for (int i = 0; i < NUM_DIRECTION_LIG; i++) {
+		modelFxCb.mCol[i] = m_DirCol[i];
+		modelFxCb.mDir[i] = m_DirLight[i];
+	}
+	modelFxCb.eyePos = camera3d->GetPosition();
+	modelFxCb.specPow = m_specPow;
+	//todo ライトカメラのビュー、プロジェクション行列を送る。
+	modelFxCb.mLightProj = shadowMap->GetLightProjMatrix();
+	modelFxCb.mLightView = shadowMap->GetLighViewMatrix();
+	if (m_isShadowReciever) {
+		modelFxCb.isShadowReciever = 1;
+	}
+	else {
+		modelFxCb.isShadowReciever = 0;
+	}
+
+	deviceContext->UpdateSubresource(m_cb, 0, nullptr, &modelFxCb, 0, 0);
+	//ライト用の定数バッファを更新。
+	//deviceContext->UpdateSubresource(m_lightCb, 0, nullptr, &m_dirLight, 0, 0);
+
+	//定数バッファをシェーダースロットに設定。
+	deviceContext->VSSetConstantBuffers(0, 1, &m_cb);
+	deviceContext->PSSetConstantBuffers(0, 1, &m_cb);
+	//deviceContext->PSSetConstantBuffers(1, 1, &m_lightCb);
+	//サンプラステートを設定する。
+	deviceContext->PSSetSamplers(0, 1, &m_samplerState);
+
+	//エフェクトにクエリを行う。
+	m_modelDx->UpdateEffects([&](DirectX::IEffect* material) {
+		auto modelMaterial = reinterpret_cast<ModelEffect*>(material);
+		modelMaterial->SetRenderMode(renderMode);
+		modelMaterial->SetShadoMapSRV(m_shadowMapSRV);
+	});
+	m_modelDx->Draw(
+		deviceContext,
+		state,
+		m_worldMatrix,
+		camera3d->GetViewMatrix(),
+		camera3d->GetProjectionMatrix()
 	);
 }
 

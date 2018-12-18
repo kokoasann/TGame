@@ -19,6 +19,7 @@ public:
 	*@brief	モデルデータを全開放。
 	*/
 	void Release();
+
 private:
 	std::map<
 		std::wstring,					

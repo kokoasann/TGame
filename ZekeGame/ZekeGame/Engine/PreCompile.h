@@ -48,4 +48,6 @@
 #include "Engine/graphics/Effect/CEffect.h"
 #include "HID/Mouse.h"
 #include "Engine/time/GameTime.h"
+#include "graphics\RenderTarget.h"
+#include "graphics/ShadowMap.h"
 
