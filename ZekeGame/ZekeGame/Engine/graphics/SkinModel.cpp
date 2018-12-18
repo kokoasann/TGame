@@ -177,6 +177,12 @@ void SkinModel::Draw(EnRenderMode renderMode, CMatrix viewMatrix, CMatrix projMa
 	modelFxCb.mWorld = m_worldMatrix;
 	modelFxCb.mProj = projMatrix;
 	modelFxCb.mView = viewMatrix;
+	for (int i = 0; i < NUM_DIRECTION_LIG; i++) {
+		modelFxCb.mCol[i] = m_DirCol[i];
+		modelFxCb.mDir[i] = m_DirLight[i];
+	}
+	modelFxCb.eyePos = camera3d->GetPosition();
+	modelFxCb.specPow = m_specPow;
 	//todo ライトカメラのビュー、プロジェクション行列を送る。
 	modelFxCb.mLightProj = shadowMap->GetLightProjMatrix();
 	modelFxCb.mLightView = shadowMap->GetLighViewMatrix();
@@ -202,6 +208,7 @@ void SkinModel::Draw(EnRenderMode renderMode, CMatrix viewMatrix, CMatrix projMa
 	m_modelDx->UpdateEffects([&](DirectX::IEffect* material) {
 		auto modelMaterial = reinterpret_cast<ModelEffect*>(material);
 		modelMaterial->SetRenderMode(renderMode);
+		modelMaterial->SetShadoMapSRV(m_shadowMapSRV);
 	});
 	m_modelDx->Draw(
 		deviceContext,

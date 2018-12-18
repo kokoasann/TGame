@@ -95,7 +95,9 @@ public:
 	void SetSpecularPow(float pow) {
 		m_specPow = pow;
 	}
-
+	void SetShadowMap(ID3D11ShaderResourceView* srv) {
+		m_shadowMapSRV = srv;
+	}
 private:
 	/*!
 	*@brief	サンプラステートの初期化。
@@ -147,6 +149,7 @@ private:
 	const char* m_psmain;
 	bool m_isShadowReciever = true;
 	EnRenderMode m_renderMode = enRenderMode_Invalid;	//レンダリングモード。
+	ID3D11ShaderResourceView* m_shadowMapSRV = nullptr;
 	//DirectionLight m_light;q
 };
 

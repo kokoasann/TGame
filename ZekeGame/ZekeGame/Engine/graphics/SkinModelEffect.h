@@ -16,6 +16,7 @@ protected:
 	Shader m_psShadowMap;		//シャドウマップ生成用のピクセルシェーダー。
 	bool isSkining;
 	ID3D11ShaderResourceView* m_albedoTex = nullptr;
+	ID3D11ShaderResourceView* m_shadowMapSRV = nullptr;
 	//std::array<ID3D11ShaderResourceView*, 4> m_albedoTextureStack = { nullptr };
 	int m_albedoTextureStackPos = 0;
 	EnRenderMode m_renderMode = enRenderMode_Invalid;	//レンダリングモード。
@@ -59,6 +60,10 @@ public:
 	void SetRenderMode(EnRenderMode renderMode)
 	{
 		m_renderMode = renderMode;
+	}
+	void SetShadoMapSRV(ID3D11ShaderResourceView* srv)
+	{
+		m_shadowMapSRV = srv;
 	}
 };
 /*!

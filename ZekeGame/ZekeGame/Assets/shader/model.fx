@@ -8,7 +8,8 @@
  /////////////////////////////////////////////////////////////
  //アルベドテクスチャ。
 Texture2D<float4> albedoTexture : register(t0);
-Texture2D<float4> g_shadowMap : register(t1);		//todo シャドウマップ。
+//ShadowMap
+Texture2D<float4> g_shadowMap : register(t2);		
 
 //ボーン行列
 StructuredBuffer<float4x4> boneMatrix : register(t1);
@@ -180,19 +181,19 @@ float4 PSMain(PSInput In) : SV_Target0
 	for (int i = 0; i < NUM_DIRECTION_LIG; i++) {
 		lig += max(0.0f, dot(In.Normal * -1.0f, mDirLight[i])) * mColor[i];
 	}
-	//スペキュラ
-	float3 toEyeDir = normalize(eyePos - In.worldPos);
-	//視点の反射ベクトルr
-	float3 r = -toEyeDir + 2 * In.Normal * dot(toEyeDir, In.Normal);
-	//反射ベクトルとディレクションライトのベクトルの内積
-	float3 specLig;
-	float t;
-	for (int i = 0; i < NUM_DIRECTION_LIG; i++) {
-		t = max(0.0f, dot(r, -mDirLight[i]));
-		//スペキュラを絞る
-		specLig = pow(t, specPow) * mColor[i].xyz;
-		lig += specLig;
-	}
+	////スペキュラ
+	//float3 toEyeDir = normalize(eyePos - In.worldPos);
+	////視点の反射ベクトルr
+	//float3 r = -toEyeDir + 2 * In.Normal * dot(toEyeDir, In.Normal);
+	////反射ベクトルとディレクションライトのベクトルの内積
+	//float3 specLig;
+	//float t;
+	//for (int i = 0; i < NUM_DIRECTION_LIG; i++) {
+	//	t = max(0.0f, dot(r, -mDirLight[i]));
+	//	//スペキュラを絞る
+	//	specLig = pow(t, specPow) * mColor[i].xyz;
+	//	lig += specLig;
+	//}
 	if (isShadowReciever == 1) {	//シャドウレシーバー。
 									//LVP空間から見た時の最も手前の深度値をシャドウマップから取得する。
 		float2 shadowMapUV = In.posInLVP.xy / In.posInLVP.w;
@@ -216,9 +217,8 @@ float4 PSMain(PSInput In) : SV_Target0
 			}
 		}
 	}
-	//lig /= 4.f;
 	float4 finalColor = float4(0.0f, 0.0f, 0.0f, 1.0f);
-	finalColor.xyz = albedoColor.xyz * lig;
+	finalColor.xyz = albedoColor.xyz *lig;
 	return finalColor;
 }
 
