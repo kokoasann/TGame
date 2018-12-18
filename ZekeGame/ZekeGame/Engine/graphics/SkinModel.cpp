@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "SkinModel.h"
 #include "SkinModelDataManager.h"
+#include "SkinModelEffect.h"
+
 SkinModel::~SkinModel()
 {
 	if (m_cb != nullptr) {
@@ -198,7 +200,7 @@ void SkinModel::Draw(EnRenderMode renderMode, CMatrix viewMatrix, CMatrix projMa
 
 	//エフェクトにクエリを行う。
 	m_modelDx->UpdateEffects([&](DirectX::IEffect* material) {
-		auto modelMaterial = reinterpret_cast<SkinModel*>(material);
+		auto modelMaterial = reinterpret_cast<ModelEffect*>(material);
 		modelMaterial->SetRenderMode(renderMode);
 	});
 	m_modelDx->Draw(

@@ -17,7 +17,7 @@ bool TestScene::Start() {
 	m_skinModel = NewGO<SkinModelRender>(0, "testmodel");
 	m_skinModel->Init(L"Assets/modelData/Octane.cmo");
 	m_skinModel->SetPosition(CVector3::Zero());
-	//IGameObjectManager().AddShadowCaster(&m_skinModel->GetSkinModel());
+	IGameObjectManager().AddShadowCaster(&m_skinModel->GetSkinModel());
 
 	CQuaternion rr = CQuaternion::Identity();
 	rr.SetRotationDeg(CVector3::AxisX(), 90.f);

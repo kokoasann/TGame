@@ -30,8 +30,8 @@ void __cdecl ModelEffect::Apply(ID3D11DeviceContext* deviceContext)
 	//}
 	//TODO : renderMode‚ÌXV
 	if (m_renderMode == enRenderMode_CreateShadowMap) {
-			deviceContext->VSSetShader((ID3D11VertexShader*)m_vsShadowMap.GetBody(), NULL, 0);
-			deviceContext->PSSetShader((ID3D11PixelShader*)m_psShadowMap.GetBody(), NULL, 0);
+		deviceContext->VSSetShader((ID3D11VertexShader*)m_vsShadowMap.GetBody(), NULL, 0);
+		deviceContext->PSSetShader((ID3D11PixelShader*)m_psShadowMap.GetBody(), NULL, 0);
 	}
 	else{
 		deviceContext->VSSetShader((ID3D11VertexShader*)m_pVSShader->GetBody(), NULL, 0);
