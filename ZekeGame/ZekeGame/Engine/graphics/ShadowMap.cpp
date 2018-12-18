@@ -14,6 +14,7 @@ ShadowMap::ShadowMap()
 
 ShadowMap::~ShadowMap()
 {
+	m_shadowMapRT.ReleaseRenderTarget();
 }
 
 void ShadowMap::UpdateFromLightDirection(CVector3 lightCameraPos, CVector3 lightDir)

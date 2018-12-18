@@ -76,6 +76,10 @@ public:
 	CVector3 GetPosition() {
 		return m_pos;
 	}
+
+	void SetShadowReciever(bool flag) {
+		m_skinModel.SetShadowReciever(flag);
+	}
 private:
 	SkinModel m_skinModel;
 	EnFbxUpAxis m_enFbxUpAxis;

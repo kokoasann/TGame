@@ -15,8 +15,8 @@ int WINAPI wWinMain(
 	//NewGO<Game>(0,"Game");
 	//NewGO<PvPModeSelect>(0, "pvp");
 	NewGO<GameCamera2D>(0, "cam2d");
-	//NewGO<ModeSelect>(0, "modesel");
-	NewGO<TestScene>(0, "22");
+	NewGO<ModeSelect>(0, "modesel");
+	//NewGO<TestScene>(0, "22");
 	//MainRoop
 	Engine::IEngine().GameRoop();
 	//Release

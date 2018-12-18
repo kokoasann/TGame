@@ -119,6 +119,10 @@ private:
 	{
 		m_renderMode = renderMode;
 	}
+	public:
+	void SetShadowReciever(bool flag) {
+		m_isShadowReciever = flag;
+	}
 private:
 	static const int NUM_DIRECTION_LIG = 4;
 

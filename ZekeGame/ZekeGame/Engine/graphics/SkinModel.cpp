@@ -186,7 +186,7 @@ void SkinModel::Draw(EnRenderMode renderMode, CMatrix viewMatrix, CMatrix projMa
 	//todo ライトカメラのビュー、プロジェクション行列を送る。
 	modelFxCb.mLightProj = shadowMap->GetLightProjMatrix();
 	modelFxCb.mLightView = shadowMap->GetLighViewMatrix();
-	if (m_isShadowReciever == true) {
+	if (m_isShadowReciever) {
 		modelFxCb.isShadowReciever = 1;
 	}
 	else {
