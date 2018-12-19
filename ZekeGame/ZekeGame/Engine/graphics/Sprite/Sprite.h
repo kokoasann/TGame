@@ -55,4 +55,6 @@ private:
 	*@brief	定数バッファの初期化。
 	*/
 	void InitConstantBuffer();
+
+	ID3D11BlendState* pBlendState = NULL;
 };
