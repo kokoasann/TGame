@@ -27,6 +27,9 @@ Sprite::~Sprite()
 	if (m_texture != NULL) {
 		m_texture->Release();
 	}
+	if (pBlendState != NULL) {
+		pBlendState->Release();
+	}
 }
 void Sprite::Update(const CVector3& trans, const CQuaternion& rot, const CVector3& scale, CVector2 pivot)
 {
@@ -87,6 +90,16 @@ void Sprite::Init(const wchar_t* texFilePath, float w, float h)
 		&m_texture
 	);
 	InitConstantBuffer();
+
+	CD3D11_DEFAULT def;
+	CD3D11_BLEND_DESC BlendDesc(def);
+	BlendDesc.AlphaToCoverageEnable = TRUE;
+	BlendDesc.IndependentBlendEnable = TRUE;
+	BlendDesc.RenderTarget[0].BlendEnable = TRUE;
+	BlendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+	BlendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+	BlendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+	g_graphicsEngine->GetD3DDevice()->CreateBlendState(&BlendDesc, &pBlendState);
 }
 
 void Sprite::Draw()
@@ -108,20 +121,8 @@ void Sprite::Draw()
 		0
 	);
 
-	ID3D11BlendState* pBlendState = NULL;
-	CD3D11_DEFAULT def;
-	CD3D11_BLEND_DESC BlendDesc(def);
-	BlendDesc.AlphaToCoverageEnable = TRUE;
-	BlendDesc.IndependentBlendEnable = TRUE;
-	BlendDesc.RenderTarget[0].BlendEnable = TRUE;
-	BlendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
-	BlendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
-	BlendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
-
-
 
 	float blendFactor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
-	g_graphicsEngine->GetD3DDevice()->CreateBlendState(&BlendDesc, &pBlendState);
 	g_graphicsEngine->GetD3DDeviceContext()->OMSetBlendState(pBlendState, blendFactor, 0xffffffff);
 	g_graphicsEngine->GetD3DDeviceContext()->PSSetShaderResources(0, 1, &m_texture);
 	g_graphicsEngine->GetD3DDeviceContext()->PSSetSamplers(0, 1, &m_samplerState);
