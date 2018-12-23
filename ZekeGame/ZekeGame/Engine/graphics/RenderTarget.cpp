@@ -12,6 +12,8 @@ RenderTarget::~RenderTarget()
 }
 
 void RenderTarget::Create(unsigned int w, unsigned int h, DXGI_FORMAT texFormat) {
+	m_width = (float)w;
+	m_height = (float)h;
 	auto d3dDevice = g_graphicsEngine->GetD3DDevice();
 	//create rendering target texture
 	D3D11_TEXTURE2D_DESC texDesc = { 0 };

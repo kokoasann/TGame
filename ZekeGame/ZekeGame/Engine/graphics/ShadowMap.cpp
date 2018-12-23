@@ -57,7 +57,7 @@ void ShadowMap::RenderToShadowMap()
 	ID3D11RenderTargetView* rts[] = {
 		m_shadowMapRT.GetRenderTargetView()
 	};
-	d3dDeviceContext->OMSetRenderTargets(1, rts, m_shadowMapRT.GetDepthStencilView());
+	d3dDeviceContext->OMSetRenderTargets(1, rts, m_shadowMapRT.GetDepthStensilView());
 	//ビューポートを設定。
 	d3dDeviceContext->RSSetViewports(1, m_shadowMapRT.GetViewport());
 	//シャドウマップをクリア。

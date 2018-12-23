@@ -89,8 +89,9 @@ void SkinModel::InitDirectionLight() {
 		m_DirLight[1] = { -1.0f, 0.0f, 0.0f, 0.0f };
 		m_DirCol[1] = { 1.f, 1.0f, 1.0f, 1.0f };
 
-		m_DirLight[2] = { 0.0f, 0.0f, 1.0f, 0.0f };
-		m_DirCol[2] = { 0.0f, 0.0f, 0.0f, 0.0f };
+		m_DirLight[2] = { 0.0f, -1.0f, 0.0f, 0.0f };
+		m_DirCol[2] = { 1.f, 1.0f, 1.0f, 1.0f };
+
 
 		m_DirLight[3] = { 1.0f, 0.0f, -1.0f, 0.0f };
 		m_DirCol[3] = { 0.0f, 0.0f, 0.0f, 0.0f };

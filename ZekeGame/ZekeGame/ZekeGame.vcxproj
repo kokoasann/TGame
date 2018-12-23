@@ -181,6 +181,8 @@
     <ClCompile Include="Engine\graphics\font\FontRender.cpp" />
     <ClCompile Include="Engine\graphics\GPUBuffer\CGPUBuffer.cpp" />
     <ClCompile Include="Engine\graphics\GraphicsEngine.cpp" />
+    <ClCompile Include="Engine\graphics\postEffect\Bloom.cpp" />
+    <ClCompile Include="Engine\graphics\postEffect\PostEffect.cpp" />
     <ClCompile Include="Engine\graphics\RenderTarget.cpp" />
     <ClCompile Include="Engine\graphics\Shader.cpp" />
     <ClCompile Include="Engine\graphics\ShaderResouceView.cpp" />
@@ -293,6 +295,8 @@
     <ClInclude Include="Engine\graphics\GPUBuffer\CGPUBuffer.h" />
     <ClInclude Include="Engine\graphics\GraphicsEngine.h" />
     <ClInclude Include="Engine\graphics\Noncopyable.h" />
+    <ClInclude Include="Engine\graphics\postEffect\Bloom.h" />
+    <ClInclude Include="Engine\graphics\postEffect\PostEffect.h" />
     <ClInclude Include="Engine\graphics\RenderTarget.h" />
     <ClInclude Include="Engine\graphics\Shader.h" />
     <ClInclude Include="Engine\graphics\ShaderResouceView.h" />

@@ -15,7 +15,7 @@ public:
 		return m_renderTargetView;
 	}
 
-	ID3D11DepthStencilView* GetDepthStencilView() {
+	ID3D11DepthStencilView* GetDepthStensilView() {
 		return m_depthStencilView;
 	}
 
@@ -27,7 +27,19 @@ public:
 	{
 		return &m_viewport;
 	}
+
+	float GetWidth() const
+	{
+		return m_width;
+	}
+
+	float GetHeight() const
+	{
+		return m_height;
+	}
 private:
+	float m_width = 0;										//!<レンダリングターゲットの幅。
+	float m_height = 0;										//!<レンダリングターゲットの高さ。
 	ID3D11RenderTargetView* m_renderTargetView = nullptr;
 	ID3D11DepthStencilView* m_depthStencilView = nullptr;
 	ID3D11Texture2D* m_depthStencilTex = nullptr;

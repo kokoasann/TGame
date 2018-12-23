@@ -163,6 +163,9 @@
     <Filter Include="ソース ファイル\Engine\graphics\modelData">
       <UniqueIdentifier>{78570172-9415-45e1-923f-c85e1b4d708a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Engine\graphics\postEffect">
+      <UniqueIdentifier>{7f8f4b9a-cd97-4fd8-a9b6-83832837acfc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\character\CharacterController.cpp">
@@ -507,6 +510,12 @@
     </ClCompile>
     <ClCompile Include="Engine\graphics\ShadowMap.cpp">
       <Filter>ソース ファイル\Engine\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\graphics\postEffect\Bloom.cpp">
+      <Filter>ソース ファイル\Engine\graphics\postEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\graphics\postEffect\PostEffect.cpp">
+      <Filter>ソース ファイル\Engine\graphics\postEffect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1157,6 +1166,12 @@
     </ClInclude>
     <ClInclude Include="Engine\graphics\ShadowMap.h">
       <Filter>ソース ファイル\Engine\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\graphics\postEffect\Bloom.h">
+      <Filter>ソース ファイル\Engine\graphics\postEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\graphics\postEffect\PostEffect.h">
+      <Filter>ソース ファイル\Engine\graphics\postEffect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

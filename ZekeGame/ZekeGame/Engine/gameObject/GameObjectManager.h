@@ -5,6 +5,8 @@
 #include "Engine/graphics/CUtil.h"
 #include "CTransform.h"
 #include "../graphics/ShadowMap.h"
+#include "../graphics/postEffect/Bloom.h"
+#include "../graphics/postEffect/PostEffect.h"
 
 class CTransform;
 
@@ -13,8 +15,17 @@ class GameObjectManager : Noncopyable
 private:
 	GameObjectManager() :
 		m_gameObjectPriorityMax(0)
-	{}
-	~GameObjectManager(){}
+	{
+	}
+	~GameObjectManager(){
+		m_mainRenderTarget.ReleaseRenderTarget();
+		if (m_frameBufferRenderTargetView != nullptr) {
+			m_frameBufferRenderTargetView->Release();
+		}
+		if (m_frameBufferDepthStencilView != nullptr) {
+			m_frameBufferDepthStencilView->Release();
+		}
+	}
 	/*!
 		*@brief	ゲームオブジェクトの名前キーを作成。
 		*/
@@ -187,9 +198,20 @@ private:
 	*@brief	シーングラフの更新。
 	*/
 	void UpdateSceneGraph();
+	public:
+	RenderTarget* GetMainRenderTarget() {
+		return &m_mainRenderTarget;
+	}
+
 private:
 	ShadowMap m_shadowMap;					//シャドウマップ。
-
+	RenderTarget m_mainRenderTarget;		//メインレンダリングターゲット。
+	PostEffect m_postEffect;				//ポストエフェクト。
+	Sprite m_copyMainRtToFrameBufferSprite;			//メインレンダリングターゲットに描かれた絵をフレームバッファにコピーするためのスプライト。
+	D3D11_VIEWPORT m_frameBufferViewports;			//フレームバッファのビューポート。
+	ID3D11RenderTargetView* m_frameBufferRenderTargetView = nullptr;	//フレームバッファのレンダリングターゲットビュー。
+	ID3D11DepthStencilView* m_frameBufferDepthStencilView = nullptr;	//フレームバッファのデプスステンシルビュー。
+	//TODO : shadow caster kahen hairetuu
 	//std::vector<SkinModel*> m_shadowCasters;
 	SkinModel* m_shadowCaster = nullptr;
 	CTransform m_transform;												//!<Transform。

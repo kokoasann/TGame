@@ -2,6 +2,7 @@
 
 #include "CShaderResource.h"
 #include "Effect\CEffectEngine.h"
+#include "../graphics/RenderTarget.h"
 
 class CShaderResource;
 class CEffectEngine;
@@ -72,6 +73,10 @@ public:
 
 	void BegineRender();
 	void EndRender();
+
+	void ChangeRenderTarget(RenderTarget* renderTarget, D3D11_VIEWPORT* viewport);
+	void ChangeRenderTarget(ID3D11RenderTargetView* renderTarget, ID3D11DepthStencilView* depthStensil, D3D11_VIEWPORT* viewport);
+
 private:
 	CShaderResource m_shaderResources;
 	ID3D11Device* m_pd3dDevice = NULL;
