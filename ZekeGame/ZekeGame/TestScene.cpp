@@ -27,9 +27,9 @@ bool TestScene::Start() {
 	CVector3 ppp = CVector3::Zero();
 	ppp.z -= 3.f;
 
-	m_bg = NewGO<SkinModelRender>(0, "bg");
+	/*m_bg = NewGO<SkinModelRender>(0, "bg");
 	m_bg->Init(L"Assets/modelData/testtt.cmo");
-	m_bg->SetPosition(CVector3::Zero());
+	m_bg->SetPosition(CVector3::Zero());*/
 	m_camera->SetPosition(ppp);
 	m_camera->Update();
 	return true;
@@ -45,6 +45,14 @@ void TestScene::Update() {
 	}
 	pos.x -= g_pad[0].GetLStickXF() * 10.f;
 	pos.z -= g_pad[0].GetLStickYF() * 10.f;
+	m_rot.SetRotationDeg(CVector3::AxisY(), g_pad[0].GetRStickXF() * 180.f);
+	CQuaternion r = CQuaternion::Identity();
+	r.SetRotationDeg(CVector3::AxisX(), 90.f);
+	CQuaternion rr = CQuaternion::Identity();
+	rr.SetRotationDeg(CVector3::AxisZ(), 180.f);
+	m_rot.Multiply(r);
+	m_rot.Multiply(rr);
 	m_skinModel->SetPosition(pos);
-	m_camera->Update();
+	m_skinModel->SetRotation(m_rot);
+//	m_camera->Update();
 }

@@ -4,6 +4,8 @@
 #include "../CRenderContext.h"
 #include "../CPrimitive.h"
 #include "../CShader.h"
+#include "../Shader.h"
+
 class Sprite : Noncopyable
 {
 public:
@@ -11,7 +13,7 @@ public:
 
 	Sprite();
 	~Sprite();
-
+	void Init(ID3D11ShaderResourceView* srv, float w, float h);
 	/*
 	*@brief	初期化。
 	*@param	texFilePath		テクスチャのファイルパス。
@@ -35,6 +37,7 @@ public:
 	*@brief	描画。
 	*/
 	void Draw();
+	void Draww();
 
 	struct ConstantBuffer {
 		CMatrix WVP;		//ワールドビュープロジェクション行列。
@@ -50,11 +53,17 @@ public:
 	CMatrix						m_world = CMatrix::Identity();			//ワールド行列。
 	CVector2					m_size = CVector2::Zero();				//画像のサイズ。
 	ID3D11Buffer*				m__cb = nullptr;							//定数バッファ。
+	Shader						m_vs;									//頂点シェーダー。
+	Shader						m_ps;									//ピクセルシェーダー。
 private:
+	void InitCommon(float w, float h);
 	/*!
 	*@brief	定数バッファの初期化。
 	*/
 	void InitConstantBuffer();
+	void InitVertexBuffer(float w, float h);
+	void InitIndexBuffer();
+	void InitSamplerState();
 
 	ID3D11BlendState* pBlendState = NULL;
 };
