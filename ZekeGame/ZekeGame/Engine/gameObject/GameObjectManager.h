@@ -17,7 +17,7 @@ private:
 		m_gameObjectPriorityMax(0)
 	{
 	}
-	~GameObjectManager(){
+	~GameObjectManager() {
 		m_mainRenderTarget.ReleaseRenderTarget();
 		if (m_frameBufferRenderTargetView != nullptr) {
 			m_frameBufferRenderTargetView->Release();
@@ -25,6 +25,7 @@ private:
 		if (m_frameBufferDepthStencilView != nullptr) {
 			m_frameBufferDepthStencilView->Release();
 		}
+		m_shadowMap.ClearShadowCasters();
 	}
 	/*!
 		*@brief	ゲームオブジェクトの名前キーを作成。
@@ -43,8 +44,11 @@ private:
 	}
 public:
 	void AddShadowCaster(SkinModel* model) {
-		//m_shadowCasters.push_back(model);
-		m_shadowCaster = model;
+		m_shadowMap.RegistShadowCaster(model);
+		//m_shadowCaster = model;
+	}
+	void ClearShadowCasters() {
+		m_shadowMap.ClearShadowCasters();
 	}
 	/*!
  *@brief	インスタンスの取得。
@@ -211,7 +215,6 @@ private:
 	D3D11_VIEWPORT m_frameBufferViewports;			//フレームバッファのビューポート。
 	ID3D11RenderTargetView* m_frameBufferRenderTargetView = nullptr;	//フレームバッファのレンダリングターゲットビュー。
 	ID3D11DepthStencilView* m_frameBufferDepthStencilView = nullptr;	//フレームバッファのデプスステンシルビュー。
-	//TODO : shadow caster kahen hairetuu
 	//std::vector<SkinModel*> m_shadowCasters;
 	SkinModel* m_shadowCaster = nullptr;
 	CTransform m_transform;												//!<Transform。

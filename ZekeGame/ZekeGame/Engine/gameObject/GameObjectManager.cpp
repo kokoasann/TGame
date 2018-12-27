@@ -26,10 +26,11 @@ void GameObjectManager::Execute()
 
 	//シャドウキャスターを登録。
 	//for (auto i = m_shadowCasters.begin(); i != m_shadowCasters.end(); ++i) {
-	if (m_shadowCaster != nullptr) {
-		m_shadowMap.RegistShadowCaster(m_shadowCaster);
-	}
+	//	m_shadowMap.RegistShadowCaster(m_);
 	//}
+	/*for (auto& caster : m_shadowCasters) {
+		m_shadowMap.RegistShadowCaster(caster);
+	}*/
 	//シャドウマップを更新。
 	m_shadowMap.UpdateFromLightTarget(
 		{ 1000.0f, 1000.0f, 1000.0f },
