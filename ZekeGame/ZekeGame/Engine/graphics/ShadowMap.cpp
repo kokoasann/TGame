@@ -73,6 +73,4 @@ void ShadowMap::RenderToShadowMap()
 			m_lightProjMatrix
 		);
 	}
-	//キャスターをクリア。
-	m_shadowCasters.clear();
 }

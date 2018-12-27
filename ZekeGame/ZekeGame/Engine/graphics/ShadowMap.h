@@ -15,6 +15,10 @@ public:
 		return m_lightProjMatrix;
 	}
 
+	void ClearShadowCasters() {
+		m_shadowCasters.clear();
+	}
+
 	void UpdateFromLightTarget(CVector3 lightCameraPos, CVector3 lightCameraTarget);
 
 	void UpdateFromLightDirection(CVector3 lightCameraPos, CVector3 lightDir);
