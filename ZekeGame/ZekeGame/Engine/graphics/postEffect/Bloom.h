@@ -71,7 +71,7 @@ private:
 	Shader m_psFinal;					//最終合成用のピクセルシェーダー。
 
 	SBlurParam m_blurParam;				//ブラー用のパラメータ。
-	float m_blurDispersion = 50.0f;		//ブラーの分散具合。大きくするほど強く分散する。
+	float m_blurDispersion = 5.0f;		//ブラーの分散具合。大きくするほど強く分散する。
 	ID3D11Buffer* m_blurParamCB = nullptr;	//ブラーパラメータ用の定数バッファ。
 };
 

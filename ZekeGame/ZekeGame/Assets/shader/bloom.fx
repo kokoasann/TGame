@@ -124,22 +124,14 @@ PS_BlurInput VSYBlur(VSInput In)
 float4 PSBlur(PS_BlurInput In) : SV_Target0
 {
 	float4 Color;
-Color = weight[0].x * (luminanceTexture.Sample(Sampler, In.tex0)
-	+ luminanceTexture.Sample(Sampler, In.tex7 + offset));
-Color += weight[0].y * (luminanceTexture.Sample(Sampler, In.tex1)
-	+ luminanceTexture.Sample(Sampler, In.tex6 + offset));
-Color += weight[0].z * (luminanceTexture.Sample(Sampler, In.tex2)
-	+ luminanceTexture.Sample(Sampler, In.tex5 + offset));
-Color += weight[0].w * (luminanceTexture.Sample(Sampler, In.tex3)
-	+ luminanceTexture.Sample(Sampler, In.tex4 + offset));
-Color += weight[1].x * (luminanceTexture.Sample(Sampler, In.tex4)
-	+ luminanceTexture.Sample(Sampler, In.tex3 + offset));
-Color += weight[1].y * (luminanceTexture.Sample(Sampler, In.tex5)
-	+ luminanceTexture.Sample(Sampler, In.tex2 + offset));
-Color += weight[1].z * (luminanceTexture.Sample(Sampler, In.tex6)
-	+ luminanceTexture.Sample(Sampler, In.tex1 + offset));
-Color += weight[1].w * (luminanceTexture.Sample(Sampler, In.tex7)
-	+ luminanceTexture.Sample(Sampler, In.tex0 + offset));
+	Color = weight[0].x * (luminanceTexture.Sample(Sampler, In.tex0) + luminanceTexture.Sample(Sampler, In.tex7 + offset));
+	Color += weight[0].y * (luminanceTexture.Sample(Sampler, In.tex1) + luminanceTexture.Sample(Sampler, In.tex6 + offset));
+	Color += weight[0].z * (luminanceTexture.Sample(Sampler, In.tex2) + luminanceTexture.Sample(Sampler, In.tex5 + offset));
+	Color += weight[0].w * (luminanceTexture.Sample(Sampler, In.tex3)+ luminanceTexture.Sample(Sampler, In.tex4 + offset));
+	Color += weight[1].x * (luminanceTexture.Sample(Sampler, In.tex4)+ luminanceTexture.Sample(Sampler, In.tex3 + offset));
+	Color += weight[1].y * (luminanceTexture.Sample(Sampler, In.tex5)+ luminanceTexture.Sample(Sampler, In.tex2 + offset));
+	Color += weight[1].z * (luminanceTexture.Sample(Sampler, In.tex6)+ luminanceTexture.Sample(Sampler, In.tex1 + offset));
+	Color += weight[1].w * (luminanceTexture.Sample(Sampler, In.tex7)+ luminanceTexture.Sample(Sampler, In.tex0 + offset));
 return float4(Color.xyz, 1.0f);
 }
 

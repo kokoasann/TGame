@@ -10,17 +10,15 @@ TestScene::TestScene()
 
 TestScene::~TestScene()
 {
+	DeleteGO(m_skinModel);
 }
 
 
 bool TestScene::Start() {
 	m_skinModel = NewGO<SkinModelRender>(0, "model");
-	m_skinModel->Init(L"Assets/modelData/Octane.cmo");
-	m_skinModel2 = NewGO<SkinModelRender>(0, "mm");
-	m_skinModel2->Init(L"Assets/modelData/Octane.cmo");
+	m_skinModel->Init(L"Assets/modelData/lightTest.cmo");
 	m_skinModel->SetPosition(CVector3::Zero());
 	IGameObjectManager().AddShadowCaster(&m_skinModel->GetSkinModel());
-	IGameObjectManager().AddShadowCaster(&m_skinModel2->GetSkinModel());
 	m_skinModel->SetFbxUpAxis(enFbxUpAxisY);
 	CQuaternion r = CQuaternion::Identity();
 	r.SetRotationDeg(CVector3::AxisX(), 90.f);
@@ -30,9 +28,9 @@ bool TestScene::Start() {
 	CVector3 ppp = CVector3::Zero();
 	ppp.z -= 3.f;
 
-	m_bg = NewGO<SkinModelRender>(0, "bg");
+	/*m_bg = NewGO<SkinModelRender>(0, "bg");
 	m_bg->Init(L"Assets/modelData/testtt.cmo");
-	m_bg->SetPosition(CVector3::Zero());
+	m_bg->SetPosition(CVector3::Zero());*/
 	m_camera->SetPosition(ppp);
 	m_camera->Update();
 	return true;
@@ -58,8 +56,6 @@ void TestScene::Update() {
 	m_skinModel->SetPosition(pos);
 	CVector3 addedPos = pos;
 	addedPos.x += 50.f;
-	m_skinModel2->SetPosition(addedPos);
 	m_skinModel->SetRotation(m_rot);
-	m_skinModel2->SetRotation(m_rot);
-	m_camera->Update();
+	//m_camera->Update();
 }
