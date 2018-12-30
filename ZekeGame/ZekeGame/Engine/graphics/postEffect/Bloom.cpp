@@ -182,7 +182,6 @@ void Bloom::Draw(PostEffect& postEffect)
 	}
 	//最後にぼかした絵を加算合成でメインレンダリングターゲットに合成して終わり。
 	{
-		//auto mainRT = g_game->GetMainRenderTarget();
 		auto mainRT = IGameObjectManager().GetMainRenderTarget();
 		g_graphicsEngine->ChangeRenderTarget(mainRT, mainRT->GetViewport());
 

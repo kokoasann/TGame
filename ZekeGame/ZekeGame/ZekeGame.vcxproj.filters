@@ -1140,6 +1140,9 @@
     <MeshContentTask Include="Assets\modelData\testtt.FBX">
       <Filter>ソース ファイル\Engine\graphics\modelData</Filter>
     </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\lightTest.FBX">
+      <Filter>ソース ファイル\Engine\graphics\modelData</Filter>
+    </MeshContentTask>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\modelData\boxTex.png">

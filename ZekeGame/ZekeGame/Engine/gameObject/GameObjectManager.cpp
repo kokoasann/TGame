@@ -63,7 +63,7 @@ void GameObjectManager::Execute()
 	//レンダリングターゲットをメインに変更する。
 	g_graphicsEngine->ChangeRenderTarget(&m_mainRenderTarget, &m_frameBufferViewports);
 	//メインレンダリングターゲットをクリアする。
-	float clearColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+	float clearColor[] = { 0.2f, 0.2f, 0.2f, 1.0f };
 	m_mainRenderTarget.ClearRenderTarget(clearColor);
 	//レンダリング
 	for (GameObjectList objList : m_gameObjectListArray) {

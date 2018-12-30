@@ -78,19 +78,14 @@ void SkinModel::InitConstantBuffer()
 }
 
 void SkinModel::InitDirectionLight() {
-	//for (int i = 0; i < NUM_DIRECTION_LIG; i++) {
-	//	m_DirCol[i] = { 0.707,-0.707,0.0f,0.0f };
-	//	m_DirLight[i] = { 1.0f,1.0f,1.0f,1.0f };
-	//}
-	
 		m_DirLight[0] = { 1.0f, 0.0f, 0.0f, 0.0f };
-		m_DirCol[0] = { 1.f, 1.0f, 1.0f, 1.0f };
+		m_DirCol[0] = { 0.f, 0.0f, 0.0f, 1.0f };
 
 		m_DirLight[1] = { -1.0f, 0.0f, 0.0f, 0.0f };
-		m_DirCol[1] = { 1.f, 1.0f, 1.0f, 1.0f };
+		m_DirCol[1] = { 0.f, 0.0f, 0.0f, 1.0f };
 
-		m_DirLight[2] = { 0.0f, -1.0f, 0.0f, 0.0f };
-		m_DirCol[2] = { 0.f, 0.0f, 0.f, 1.0f };
+		m_DirLight[2] = { 0.0f, 0.0f, -1.0f, 0.0f };
+		m_DirCol[2] = { 0.f, 1.0f, 1.f, 1.0f };
 
 
 		m_DirLight[3] = { 1.0f, 0.0f, -1.0f, 0.0f };
