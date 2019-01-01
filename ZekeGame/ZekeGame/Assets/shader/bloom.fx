@@ -135,13 +135,39 @@ float4 PSBlur(PS_BlurInput In) : SV_Target0
 return float4(Color.xyz, 1.0f);
 }
 
-Texture2D<float4> finalBlurTexture : register(t0);	//最終ブラーテクスチャ。
 
+/////////////////////////////////////////////////////////
+// 合成
+/////////////////////////////////////////////////////////
 
-													/*!
-													*@brief	最終合成用のピクセルシェーダー。
-													*/
-float4 PSFinal(PSInput In) : SV_Target0
+Texture2D<float4> combineTexture00 : register(t0);
+Texture2D<float4> combineTexture01 : register(t1);
+Texture2D<float4> combineTexture02 : register(t2);
+Texture2D<float4> combineTexture03 : register(t3);
+Texture2D<float4> combineTexture04 : register(t4);
+/*!
+ * @brief	合成。
+ */
+float4 PSCombine(PSInput In) : SV_Target0
 {
-	return finalBlurTexture.Sample(Sampler, In.uv);
+	float2 uv = In.uv;
+	float4 combineColor = combineTexture00.Sample(Sampler, uv);
+	combineColor += combineTexture01.Sample(Sampler, uv);
+	combineColor += combineTexture02.Sample(Sampler, uv);
+	combineColor += combineTexture03.Sample(Sampler, uv);
+	combineColor += combineTexture03.Sample(Sampler, uv);
+	combineColor /= 5.0f;
+	combineColor.a = 1.0f;
+	return combineColor;
 }
+//
+//Texture2D<float4> finalBlurTexture : register(t0);	//最終ブラーテクスチャ。
+//
+//
+//													/*!
+//													*@brief	最終合成用のピクセルシェーダー。
+//													*/
+//float4 PSFinal(PSInput In) : SV_Target0
+//{
+//	return finalBlurTexture.Sample(Sampler, In.uv);
+//}

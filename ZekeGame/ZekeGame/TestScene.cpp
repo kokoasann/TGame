@@ -16,13 +16,13 @@ TestScene::~TestScene()
 
 bool TestScene::Start() {
 	m_skinModel = NewGO<SkinModelRender>(0, "model");
-	m_skinModel->Init(L"Assets/modelData/lightTest.cmo");
+	m_skinModel->Init(L"Assets/modelData/Test.cmo");
 	m_skinModel->SetPosition(CVector3::Zero());
-	IGameObjectManager().AddShadowCaster(&m_skinModel->GetSkinModel());
-	m_skinModel->SetFbxUpAxis(enFbxUpAxisY);
-	CQuaternion r = CQuaternion::Identity();
-	r.SetRotationDeg(CVector3::AxisX(), 90.f);
-	m_skinModel->SetRotation(r);
+	//IGameObjectManager().AddShadowCaster(&m_skinModel->GetSkinModel());
+	//m_skinModel->SetFbxUpAxis(enFbxUpAxisY);
+	//CQuaternion r = CQuaternion::Identity();
+	//r.SetRotationDeg(CVector3::AxisX(), 90.f);
+	//m_skinModel->SetRotation(r);
 	m_camera = new GameCamera;
 	m_camera->SetTarget(CVector3::Zero());
 	CVector3 ppp = CVector3::Zero();
