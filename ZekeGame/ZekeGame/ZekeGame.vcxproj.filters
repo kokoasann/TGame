@@ -1134,15 +1134,6 @@
     <MeshContentTask Include="Assets\modelData\uma\uma.fbx">
       <Filter>ソース ファイル\Game\Assets\modelData\uma</Filter>
     </MeshContentTask>
-    <MeshContentTask Include="Assets\modelData\RenderTest\Octane.FBX">
-      <Filter>ソース ファイル\Engine\graphics\modelData</Filter>
-    </MeshContentTask>
-    <MeshContentTask Include="Assets\modelData\testtt.FBX">
-      <Filter>ソース ファイル\Engine\graphics\modelData</Filter>
-    </MeshContentTask>
-    <MeshContentTask Include="Assets\modelData\lightTest.FBX">
-      <Filter>ソース ファイル\Engine\graphics\modelData</Filter>
-    </MeshContentTask>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\modelData\boxTex.png">
@@ -1153,9 +1144,6 @@
     </Image>
     <Image Include="Assets\modelData\stage\handle010.jpg">
       <Filter>ソース ファイル\Game\Assets\modelData\Stage</Filter>
-    </Image>
-    <Image Include="Assets\modelData\p0305_m.png">
-      <Filter>ソース ファイル\Engine\graphics\modelData</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
