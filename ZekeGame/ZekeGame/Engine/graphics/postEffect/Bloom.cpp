@@ -4,15 +4,10 @@
 
 Bloom::Bloom()
 {
-	//シェーダーを初期化。
 	InitShader();
-	//各種レンダリングターゲットの初期化。
 	InitRenderTarget();
-	//αブレンドステートを初期化。
 	InitAlphaBlendState();
-	//定数バッファの初期化。
 	InitConstantBuffer();
-	//サンプラステートの初期化。
 	InitSamplerState();
 }
 
@@ -34,7 +29,6 @@ Bloom::~Bloom()
 }
 void Bloom::InitConstantBuffer()
 {
-	//m_cbBlur.Create(&m_blurParam, sizeof(m_blurParam));
 	D3D11_BUFFER_DESC desc;
 
 	ZeroMemory(&desc, sizeof(desc));
@@ -46,13 +40,6 @@ void Bloom::InitConstantBuffer()
 }
 void Bloom::InitSamplerState()
 {
-	/*D3D11_SAMPLER_DESC desc;
-	ZeroMemory(&desc, sizeof(desc));
-	desc.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
-	desc.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
-	desc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
-	desc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
-	m_samplerState.Create(desc);*/
 	D3D11_SAMPLER_DESC desc;
 	ZeroMemory(&desc, sizeof(desc));
 	desc.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
@@ -110,28 +97,6 @@ void Bloom::InitRenderTarget()
 		h >> 2,
 		DXGI_FORMAT_R16G16B16A16_FLOAT
 	);
-	//m_isEnable = config.bloomConfig.isEnable;
-
-	////輝度抽出用のレンダリングターゲットを作成する。
-	//m_luminanceRT.Create(
-	//	FRAME_BUFFER_W,
-	//	FRAME_BUFFER_H,
-	//	DXGI_FORMAT_R16G16B16A16_FLOAT
-	//);
-
-	////ブラーをかけるためのダウンサンプリング用のレンダリングターゲットを作成。
-	////横ブラー用。
-	//m_downSamplingRT[0].Create(
-	//	FRAME_BUFFER_W * 0.5f,	//横の解像度をフレームバッファの半分にする。
-	//	FRAME_BUFFER_H,
-	//	DXGI_FORMAT_R16G16B16A16_FLOAT
-	//);
-	////縦ブラー用。
-	//m_downSamplingRT[1].Create(
-	//	FRAME_BUFFER_W * 0.5f,	//横の解像度をフレームバッファの半分にする。
-	//	FRAME_BUFFER_H * 0.5f,	//縦の解像度をフレームバッファの半分にする。
-	//	DXGI_FORMAT_R16G16B16A16_FLOAT
-	//);
 }
 void Bloom::InitAlphaBlendState()
 {
@@ -161,25 +126,10 @@ void Bloom::Update()
 	for (int i = 0; i < NUM_WEIGHTS; i++) {
 		m_blurParam.weights[i] /= total;
 	}
-	////ガウスフィルタの重みを更新する。
-	//float total = 0;
-	//for (int i = 0; i < NUM_WEIGHTS; i++) {
-	//	m_blurParam.weights[i] = expf(-0.5f*(float)(i*i) / m_blurDispersion);
-	//	total += 2.0f*m_blurParam.weights[i];
-
-	//}
-	//// 規格化。重みのトータルが1.0になるように、全体の重みで除算している。
-	//for (int i = 0; i < NUM_WEIGHTS; i++) {
-	//	m_blurParam.weights[i] /= total;
-	//}
 }
 
 void Bloom::Draw(PostEffect& postEffect)
 {
-	//rc.PSSetSampler(0, m_samplerState);
-	//float clearColor[] = {
-	//	0.0f, 0.0f, 0.0f, 0.0f
-	//};
 	auto deviceContext = g_graphicsEngine->GetD3DDeviceContext();
 	deviceContext->PSSetSamplers(0, 1, &m_samplerState);
 	float clearColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
@@ -218,7 +168,6 @@ void Bloom::Draw(PostEffect& postEffect)
 				deviceContext->PSSetShaderResources(0, 1, &prevSRV);
 				deviceContext->PSSetConstantBuffers(0, 1, &m_blurParamCB);
 				postEffect.DrawFullScreenQuadPrimitive(deviceContext, m_vsXBlur, m_psBlur);
-				//rc.RSSetViewport(0.0f, 0.0f, (float)m_downSamplingRT[rtIndex].GetWidth(), (float)m_downSamplingRT[rtIndex].GetHeight());
 			}
 			prevRt = &m_downSamplingRT[rtIndex];
 			rtIndex++;
@@ -265,8 +214,6 @@ void Bloom::Draw(PostEffect& postEffect)
 		// アルファブレンディングを加算合成にする。
 		float blendFactor[] = { 0.0f, 0.0f, 0.0f, 0.0f };
 		deviceContext->OMSetBlendState(m_finalBlendState, blendFactor, 0xffffffff);
-		//rc.OMSetBlendState(AlphaBlendState::add, 0, 0xFFFFFFFF);
-
 		//定数バッファを設定する。
 		auto combineSRV = m_combineRT.GetRenderTargetSRV();
 		deviceContext->PSSetShaderResources(0, 1, &combineSRV);
@@ -276,26 +223,5 @@ void Bloom::Draw(PostEffect& postEffect)
 		deviceContext->OMSetBlendState(m_disableBlendState, blendFactor, 0xffffffff);
 
 	}
-	/*rc.PSUnsetShaderResource(0);
-	rc.PSUnsetShaderResource(1);
-	rc.PSUnsetShaderResource(2);
-	rc.PSUnsetShaderResource(3);*/
 }
 	
-
-	//	//XYブラーをかけたテクスチャをt0レジスタに設定する。
-	//	auto srv = m_downSamplingRT[1].GetRenderTargetSRV();
-	//	deviceContext->PSSetShaderResources(0, 1, &srv);
-
-	//	//加算合成用のブレンディングステートを設定する。
-	//	float blendFactor[] = { 0.0f, 0.0f, 0.0f, 0.0f };
-	//	deviceContext->OMSetBlendState(m_finalBlendState, blendFactor, 0xffffffff);
-	//	//フルスクリーン描画。
-	//	postEffect.DrawFullScreenQuadPrimitive(deviceContext, m_vs, m_psFinal);
-
-	//	//ブレンディングステートを戻す。
-	//	deviceContext->OMSetBlendState(m_disableBlendState, blendFactor, 0xffffffff);
-
-	//}
-
-//}
