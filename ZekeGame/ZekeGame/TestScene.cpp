@@ -46,16 +46,29 @@ void TestScene::Update() {
 	}
 	pos.x -= g_pad[0].GetLStickXF() * 10.f;
 	pos.z -= g_pad[0].GetLStickYF() * 10.f;
-	m_rot.SetRotationDeg(CVector3::AxisY(), g_pad[0].GetRStickXF() * 180.f);
-	CQuaternion r = CQuaternion::Identity();
-	r.SetRotationDeg(CVector3::AxisX(), 90.f);
-	CQuaternion rr = CQuaternion::Identity();
-	rr.SetRotationDeg(CVector3::AxisZ(), 180.f);
-	m_rot.Multiply(r);
-	m_rot.Multiply(rr);
+	CVector4 col = { 0.5f,0.5f,0.5f,1.f };
+	static float n = 0.5f;
+	if (g_pad[0].IsPress(enButtonRB2)) {
+		n += 0.05f;
+	}
+	if (g_pad[0].IsPress(enButtonLB2)) {
+		n -= 0.05f;
+	}
+	col.x = min(2.f, n);
+	col.x = max(0.5f, n); 
+	col.y = min(2.f, n);
+	col.y = max(0.5f, n);
+	col.z = min(2.f, n);
+	col.z = max(0.5f, n);
+
+	CQuaternion addrot;
+	float y = -g_pad[0].GetRStickXF();
+	addrot.SetRotationDeg(CVector3::AxisY(), y);
+	m_rot.Multiply(addrot);
 	m_skinModel->SetPosition(pos);
 	CVector3 addedPos = pos;
 	addedPos.x += 50.f;
 	m_skinModel->SetRotation(m_rot);
+	m_skinModel->SetDirLigColor(col,2);
 	//m_camera->Update();
 }
