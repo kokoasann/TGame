@@ -80,6 +80,11 @@ public:
 	void SetShadowReciever(bool flag) {
 		m_skinModel.SetShadowReciever(flag);
 	}
+
+	void SetDirLigColor (const CVector4& col, const int index) {
+		m_skinModel.SetDirColor(col, index);
+	}
+
 private:
 	SkinModel m_skinModel;
 	EnFbxUpAxis m_enFbxUpAxis;
