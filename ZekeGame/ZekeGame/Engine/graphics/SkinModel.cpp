@@ -14,9 +14,9 @@ SkinModel::~SkinModel()
 		m_samplerState->Release();
 	}
 }
+
 void SkinModel::Init(const wchar_t* filePath, EnFbxUpAxis enFbxUpAxis, const char* entryPS, const char* entryVS)
 {
-
 	m_psmain = entryPS;
 	m_vsmain= entryVS;
 	//スケルトンのデータを読み込む。

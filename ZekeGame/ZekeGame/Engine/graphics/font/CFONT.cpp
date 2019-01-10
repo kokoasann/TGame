@@ -18,12 +18,20 @@ CFont::~CFont()
 
 void CFont::Begin()
 {
+	auto dc = g_graphicsEngine->GetD3DDeviceContext();
+	dc->OMGetBlendState(&m_blendState, m_BlendFactor, &m_SampleMask);
+	dc->RSGetState(&m_rasterizerState);
+	dc->OMGetDepthStencilState(&m_depthStencilState, &m_StencilRef);
 	m_spriteBatch->Begin();
 }
 void CFont::End()
 {
 	m_spriteBatch->End();
-	g_graphicsEngine->Clear();
+	float blendFactor[4] = { 0.0f };
+	auto dc = g_graphicsEngine->GetD3DDeviceContext();
+	dc->OMSetBlendState(m_blendState,m_BlendFactor,m_SampleMask);
+	dc->RSSetState(m_rasterizerState);
+	dc->OMSetDepthStencilState(m_depthStencilState, m_StencilRef);
 }
 void CFont::Draw(
 	wchar_t const* text,
