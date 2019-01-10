@@ -190,6 +190,7 @@ private:
 	*/
 	void UpdateAnalogStickInput();
 private:
+	CVector2 m_curPos = CVector2::Zero();
 	PAD_STATE m_state;	//!<パッドステート。
 	int m_padNo = 0;			//!<パッド番号。
 	int m_trigger[enButtonNum];	//!<トリガー入力のフラグ。

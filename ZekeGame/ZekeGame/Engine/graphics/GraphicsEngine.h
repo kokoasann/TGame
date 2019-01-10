@@ -2,10 +2,17 @@
 
 #include "CShaderResource.h"
 #include "Effect\CEffectEngine.h"
+#include "../graphics/RenderTarget.h"
 
 class CShaderResource;
 class CEffectEngine;
 
+enum EnRenderMode {
+	enRenderMode_Invalid,			//不正なレンダリングモード。
+	enRenderMode_CreateShadowMap,	//シャドウマップ生成。
+	enRenderMode_Normal,			//通常レンダリング。
+	enRenderMode_Num,				//レンダリングモードの数。
+};
 
 class GraphicsEngine
 {
@@ -66,6 +73,10 @@ public:
 
 	void BegineRender();
 	void EndRender();
+
+	void ChangeRenderTarget(RenderTarget* renderTarget, D3D11_VIEWPORT* viewport);
+	void ChangeRenderTarget(ID3D11RenderTargetView* renderTarget, ID3D11DepthStencilView* depthStensil, D3D11_VIEWPORT* viewport);
+
 private:
 	CShaderResource m_shaderResources;
 	ID3D11Device* m_pd3dDevice = NULL;

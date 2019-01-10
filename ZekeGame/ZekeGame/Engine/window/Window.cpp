@@ -5,6 +5,7 @@ GraphicsEngine* g_graphicsEngine = NULL;
 int notch;
 bool mEve[10];
 
+//TODO : フルスクリーン表示できるようにする
 LRESULT CALLBACK MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	static int nWheelFraction = 0;	// 回転量の端数

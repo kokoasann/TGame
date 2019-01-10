@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "SkinModel.h"
 #include "SkinModelDataManager.h"
+#include "SkinModelEffect.h"
 
 SkinModel::~SkinModel()
 {
@@ -13,9 +14,9 @@ SkinModel::~SkinModel()
 		m_samplerState->Release();
 	}
 }
+
 void SkinModel::Init(const wchar_t* filePath, EnFbxUpAxis enFbxUpAxis, const char* entryPS, const char* entryVS)
 {
-
 	m_psmain = entryPS;
 	m_vsmain= entryVS;
 	//スケルトンのデータを読み込む。
@@ -26,6 +27,9 @@ void SkinModel::Init(const wchar_t* filePath, EnFbxUpAxis enFbxUpAxis, const cha
 
 	//サンプラステートの初期化。
 	InitSamplerState();
+	
+	//ディレクションライトの初期化
+	InitDirectionLight();
 
 	//SkinModelDataManagerを使用してCMOファイルのロード。
 	m_modelDx = g_skinModelDataManager.Load(filePath, m_skeleton, m_psmain, m_vsmain);
@@ -72,6 +76,22 @@ void SkinModel::InitConstantBuffer()
 	bufferDesc.CPUAccessFlags = 0;
 	g_graphicsEngine->GetD3DDevice()->CreateBuffer(&bufferDesc, NULL, &m_cb);
 }
+
+void SkinModel::InitDirectionLight() {
+		m_DirLight[0] = { 1.0f, 0.0f, 0.0f, 0.0f };
+		m_DirCol[0] = { 0.f, 0.0f, 0.0f, 1.0f };
+
+		m_DirLight[1] = { -1.0f, 0.0f, 0.0f, 0.0f };
+		m_DirCol[1] = { 0.f, 0.0f, 0.0f, 1.0f };
+
+		m_DirLight[2] = { 0.0f, 0.0f, -1.0f, 0.0f };
+		m_DirCol[2] = { 1.f, 1.0f, 1.f, 1.0f };
+
+
+		m_DirLight[3] = { 1.0f, 0.0f, -1.0f, 0.0f };
+		m_DirCol[3] = { 0.0f, 0.0f, 0.0f, 0.0f };
+}
+
 void SkinModel::InitSamplerState()
 {
 	//テクスチャのサンプリング方法を指定するためのサンプラステートを作成。
@@ -107,6 +127,7 @@ void SkinModel::UpdateWorldMatrix(CVector3 position, CQuaternion rotation, CVect
 	//スケルトンの更新。
 	m_skeleton.Update(m_worldMatrix);
 }
+
 void SkinModel::Draw(CMatrix viewMatrix, CMatrix projMatrix)
 {
 	DirectX::CommonStates state(g_graphicsEngine->GetD3DDevice());
@@ -118,8 +139,10 @@ void SkinModel::Draw(CMatrix viewMatrix, CMatrix projMatrix)
 	vsCb.mWorld = m_worldMatrix;
 	vsCb.mProj = projMatrix;
 	vsCb.mView = viewMatrix;
-	vsCb.mCol = m_DirCol;
-	vsCb.mDir = m_DirLight;
+	for (int i = 0; i < NUM_DIRECTION_LIG; i++) {
+		vsCb.mCol[i] = m_DirCol[i];
+		vsCb.mDir[i] = m_DirLight[i];
+	}
 	d3dDeviceContext->UpdateSubresource(m_cb, 0, nullptr, &vsCb, 0, 0);
 	//定数バッファをGPUに転送。
 	d3dDeviceContext->VSSetConstantBuffers(0, 1, &m_cb);
@@ -138,6 +161,60 @@ void SkinModel::Draw(CMatrix viewMatrix, CMatrix projMatrix)
 	);
 }
 
+void SkinModel::Draw(EnRenderMode renderMode, CMatrix viewMatrix, CMatrix projMatrix)
+{
+	auto deviceContext = g_graphicsEngine->GetD3DDeviceContext();
+	DirectX::CommonStates state(g_graphicsEngine->GetD3DDevice());
+
+	//auto shadowMap = g_game->GetShadowMap();
+	auto shadowMap = IGameObjectManager().GetShadowMap();
+	//定数バッファを更新。
+	SVSConstantBuffer modelFxCb;
+	modelFxCb.mWorld = m_worldMatrix;
+	modelFxCb.mProj = projMatrix;
+	modelFxCb.mView = viewMatrix;
+	for (int i = 0; i < NUM_DIRECTION_LIG; i++) {
+		modelFxCb.mCol[i] = m_DirCol[i];
+		modelFxCb.mDir[i] = m_DirLight[i];
+	}
+	modelFxCb.eyePos = camera3d->GetPosition();
+	modelFxCb.specPow = m_specPow;
+	//todo ライトカメラのビュー、プロジェクション行列を送る。
+	modelFxCb.mLightProj = shadowMap->GetLightProjMatrix();
+	modelFxCb.mLightView = shadowMap->GetLighViewMatrix();
+	if (m_isShadowReciever) {
+		modelFxCb.isShadowReciever = 1;
+	}
+	else {
+		modelFxCb.isShadowReciever = 0;
+	}
+
+	deviceContext->UpdateSubresource(m_cb, 0, nullptr, &modelFxCb, 0, 0);
+	//ライト用の定数バッファを更新。
+	//deviceContext->UpdateSubresource(m_lightCb, 0, nullptr, &m_dirLight, 0, 0);
+
+	//定数バッファをシェーダースロットに設定。
+	deviceContext->VSSetConstantBuffers(0, 1, &m_cb);
+	deviceContext->PSSetConstantBuffers(0, 1, &m_cb);
+	//deviceContext->PSSetConstantBuffers(1, 1, &m_lightCb);
+	//サンプラステートを設定する。
+	deviceContext->PSSetSamplers(0, 1, &m_samplerState);
+
+	//エフェクトにクエリを行う。
+	m_modelDx->UpdateEffects([&](DirectX::IEffect* material) {
+		auto modelMaterial = reinterpret_cast<ModelEffect*>(material);
+		modelMaterial->SetRenderMode(renderMode);
+		modelMaterial->SetShadoMapSRV(m_shadowMapSRV);
+	});
+	m_modelDx->Draw(
+		deviceContext,
+		state,
+		m_worldMatrix,
+		camera3d->GetViewMatrix(),
+		camera3d->GetProjectionMatrix()
+	);
+}
+
 void SkinModel::Draw()
 {
 
@@ -153,8 +230,12 @@ void SkinModel::Draw()
 	vsCb.mWorld = m_worldMatrix;
 	vsCb.mProj = projMatrix;
 	vsCb.mView = viewMatrix;
-	vsCb.mCol = m_DirCol;
-	vsCb.mDir = m_DirLight;
+	for (int i = 0; i < NUM_DIRECTION_LIG; i++) {
+		vsCb.mCol[i] = m_DirCol[i];
+		vsCb.mDir[i] = m_DirLight[i];
+	}
+	vsCb.eyePos = camera3d->GetPosition();
+	vsCb.specPow = m_specPow;
 	d3dDeviceContext->UpdateSubresource(m_cb, 0, nullptr, &vsCb, 0, 0);
 	//定数バッファをGPUに転送。
 	d3dDeviceContext->VSSetConstantBuffers(0, 1, &m_cb);

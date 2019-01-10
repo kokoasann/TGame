@@ -178,15 +178,20 @@
     <ClCompile Include="Engine\graphics\Effect\CEffect.cpp" />
     <ClCompile Include="Engine\graphics\Effect\CEffectEngine.cpp" />
     <ClCompile Include="Engine\graphics\font\CFONT.cpp" />
+    <ClCompile Include="Engine\graphics\font\FontRender.cpp" />
     <ClCompile Include="Engine\graphics\GPUBuffer\CGPUBuffer.cpp" />
     <ClCompile Include="Engine\graphics\GraphicsEngine.cpp" />
+    <ClCompile Include="Engine\graphics\postEffect\Bloom.cpp" />
+    <ClCompile Include="Engine\graphics\postEffect\PostEffect.cpp" />
     <ClCompile Include="Engine\graphics\RenderTarget.cpp" />
     <ClCompile Include="Engine\graphics\Shader.cpp" />
     <ClCompile Include="Engine\graphics\ShaderResouceView.cpp" />
     <ClCompile Include="Engine\graphics\ShaderResources.cpp" />
+    <ClCompile Include="Engine\graphics\ShadowMap.cpp" />
     <ClCompile Include="Engine\graphics\Skelton.cpp" />
     <ClCompile Include="Engine\graphics\SkinModel.cpp" />
     <ClCompile Include="Engine\graphics\SkinModelDataManager.cpp" />
+    <ClCompile Include="Engine\graphics\SkinModelDummy.cpp" />
     <ClCompile Include="Engine\graphics\SkinModelEffect.cpp" />
     <ClCompile Include="Engine\graphics\SkinModelRender.cpp" />
     <ClCompile Include="Engine\graphics\SkinModelShaderConst.cpp" />
@@ -260,6 +265,7 @@
     <ClCompile Include="Game\Title\pvpModeSelect.cpp" />
     <ClCompile Include="Game\Title\Title.cpp" />
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="TestScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\character\CharacterController.h" />
@@ -287,16 +293,21 @@
     <ClInclude Include="Engine\graphics\Effect\CEffect.h" />
     <ClInclude Include="Engine\graphics\Effect\CEffectEngine.h" />
     <ClInclude Include="Engine\graphics\font\CFONT.h" />
+    <ClInclude Include="Engine\graphics\font\FontRender.h" />
     <ClInclude Include="Engine\graphics\GPUBuffer\CGPUBuffer.h" />
     <ClInclude Include="Engine\graphics\GraphicsEngine.h" />
     <ClInclude Include="Engine\graphics\Noncopyable.h" />
+    <ClInclude Include="Engine\graphics\postEffect\Bloom.h" />
+    <ClInclude Include="Engine\graphics\postEffect\PostEffect.h" />
     <ClInclude Include="Engine\graphics\RenderTarget.h" />
     <ClInclude Include="Engine\graphics\Shader.h" />
     <ClInclude Include="Engine\graphics\ShaderResouceView.h" />
     <ClInclude Include="Engine\graphics\ShaderResources.h" />
+    <ClInclude Include="Engine\graphics\ShadowMap.h" />
     <ClInclude Include="Engine\graphics\Skelton.h" />
     <ClInclude Include="Engine\graphics\SkinModel.h" />
     <ClInclude Include="Engine\graphics\SkinModelDataManager.h" />
+    <ClInclude Include="Engine\graphics\SkinModelDummy.h" />
     <ClInclude Include="Engine\graphics\SkinModelEffect.h" />
     <ClInclude Include="Engine\graphics\SkinModelRender.h" />
     <ClInclude Include="Engine\graphics\SkinModelShaderConst.h" />
@@ -472,6 +483,7 @@
     <ClInclude Include="Game\Title\pvpModeSelect.h" />
     <ClInclude Include="Game\Title\Title.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="TestScene.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\stage\map.FBX" />

@@ -1,7 +1,5 @@
 #include "stdafx.h"
 #include "RenderTarget.h"
-#include "CUnorderedAccessView.h"
-#include "ShaderResouceView.h"
 
 
 RenderTarget::RenderTarget()
@@ -11,156 +9,99 @@ RenderTarget::RenderTarget()
 
 RenderTarget::~RenderTarget()
 {
-	Release();
 }
 
-bool RenderTarget::Create(
-	int w,
-	int h,
-	int mipLevel,
-	int arraySize,
-	DXGI_FORMAT colorFormat,
-	DXGI_FORMAT depthStencilFormat,
-	DXGI_SAMPLE_DESC multiSampleDesc,
-	ID3D11Texture2D* renderTarget,
-	ID3D11Texture2D* depthStencil
-)
-{
-	Release();
-	m_width = w;
-	m_height = h;
-	m_textureFormat = colorFormat;
-	m_depthStencliFormat = depthStencilFormat;
-	if (multiSampleDesc.Count > 1) {
-		//MSAAが有効。
-		m_isMSAA = true;
-	}
-	//レンダリングターゲットの作成。
-	D3D11_TEXTURE2D_DESC texDesc;
-	ZeroMemory(&texDesc, sizeof(texDesc));
-	texDesc.Width = w;
-	texDesc.Height = h;
-	texDesc.MipLevels = mipLevel;
-	texDesc.ArraySize = arraySize;
-	texDesc.Format = colorFormat;
-	texDesc.SampleDesc = multiSampleDesc;
-	texDesc.Usage = D3D11_USAGE_DEFAULT;
-	if (m_isMSAA) {
-		//MSAAが有効の時はUAVにバインドできない？
-		texDesc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
-	}
-	else {
-		texDesc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS;
-	}
-	texDesc.CPUAccessFlags = 0;
-	texDesc.MiscFlags = 0;
-
-	ID3D11Device* pD3DDevice = GraphicsEngine().GetD3DDevice();
-	HRESULT hr;
-	if (renderTarget == nullptr) {
-		hr = pD3DDevice->CreateTexture2D(&texDesc, NULL, &m_renderTarget);
-		if (FAILED(hr)) {
-			//レンダリングターゲットの作成に失敗。
-			return false;
-		}
-	}
-	else {
-		//レンダリングターゲットが指定されている。
-		m_renderTarget = renderTarget;
-		m_renderTarget->AddRef();	//参照カウンタを加算する。
-	}
-	//レンダリングターゲットビューを作成。
-	D3D11_RENDER_TARGET_VIEW_DESC rtDesc;
-	ZeroMemory(&rtDesc, sizeof(rtDesc));
-	rtDesc.Format = texDesc.Format;
-	if (texDesc.SampleDesc.Count > 1) {
-		//MSAA
-		rtDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2DMS;
-	}
-	else {
-		rtDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
-	}
-	hr = pD3DDevice->CreateRenderTargetView(m_renderTarget, &rtDesc, &m_renderTargetView);
-	if (FAILED(hr)) {
-		return false;
-	}
-
-	if (depthStencilFormat != DXGI_FORMAT_UNKNOWN) {
-		//デプスステンシルを作成。
-		D3D11_TEXTURE2D_DESC depthTexDesc = texDesc;
-		depthTexDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
-		depthTexDesc.Format = depthStencilFormat;
-		if (depthStencil == nullptr) {
-			hr = pD3DDevice->CreateTexture2D(&depthTexDesc, NULL, &m_depthStencil);
-			if (FAILED(hr)) {
-				return false;
-			}
-		}
-		else {
-			//デプスステンシルが指定されている。
-			m_depthStencil = depthStencil;
-			m_depthStencil->AddRef();	//参照カウンタを増やす。
-		}
-		//デプスステンシルビューを作成。
-		// Create the depth stencil view
-		D3D11_DEPTH_STENCIL_VIEW_DESC descDSV;
-		ZeroMemory(&descDSV, sizeof(descDSV));
-		descDSV.Format = depthTexDesc.Format;
-		if (texDesc.SampleDesc.Count > 1) {
-			//MSAA
-			descDSV.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2DMS;
-		}
-		else {
-			descDSV.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
-		}
-		descDSV.Texture2D.MipSlice = 0;
-		hr = pD3DDevice->CreateDepthStencilView(m_depthStencil, &descDSV, &m_depthStencilView);
-		if (FAILED(hr)) {
-			return false;
-		}
-	}
-	if (m_isMSAA) {
-		//MSAAが有効の時は、リゾルブされたテクスチャをSRVとして使用する。
-		//リゾルブ先となるテクスチャを作成する。
+void RenderTarget::Create(unsigned int w, unsigned int h, DXGI_FORMAT texFormat) {
+	m_width = (float)w;
+	m_height = (float)h;
+	auto d3dDevice = g_graphicsEngine->GetD3DDevice();
+	//create rendering target texture
+	D3D11_TEXTURE2D_DESC texDesc = { 0 };
+	{
+		texDesc.Width = w;
+		texDesc.Height = h;
+		texDesc.MipLevels = 1;
+		texDesc.ArraySize = 1;
+		texDesc.Format = texFormat;
 		texDesc.SampleDesc.Count = 1;
 		texDesc.SampleDesc.Quality = 0;
-		hr = pD3DDevice->CreateTexture2D(&texDesc, NULL, &m_resolveTextureMSAA);
-		if (FAILED(hr)) {
-			//リゾルブ先の作成に失敗。
-			return false;
-		}
+		texDesc.Usage = D3D11_USAGE_DEFAULT;
+		texDesc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS;
+		texDesc.CPUAccessFlags = 0;
+		texDesc.MiscFlags = 0;
+		d3dDevice->CreateTexture2D(&texDesc, nullptr, &m_renderTargetTex);
+	}
+	//create rendering target view
+	{
+		D3D11_RENDER_TARGET_VIEW_DESC viewDesc;
+		viewDesc.Format = texDesc.Format;
+		viewDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
+		viewDesc.Texture2D.MipSlice = 0;
+		d3dDevice->CreateRenderTargetView(m_renderTargetTex, &viewDesc, &m_renderTargetView);
+	}
+	//create shader resource view
+	{
+		D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
+		srvDesc.Format = texDesc.Format;
+		srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+		srvDesc.Texture2D.MipLevels = texDesc.MipLevels;
+		srvDesc.Texture2D.MostDetailedMip = 0;
+		d3dDevice->CreateShaderResourceView(m_renderTargetTex, &srvDesc, &m_renderTargetSRV);
+	}
+	//create depth Stencil texture
+	D3D11_TEXTURE2D_DESC depthTexDesc = texDesc;
 
-		m_renderTargetSRV.Create(m_resolveTextureMSAA);
+	{
+		depthTexDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+		depthTexDesc.Format = DXGI_FORMAT_D32_FLOAT;
+		d3dDevice->CreateTexture2D(&depthTexDesc, nullptr, &m_depthStencilTex);
 	}
-	else {
-		//レンダリングターゲットのSRVを作成。
-		m_renderTargetSRV.Create(m_renderTarget);
-		//レンダリングターゲットのUAVを作成。
-		m_renderTargetUAV.Create(m_renderTarget);
+	//create depth stencil view
+	{
+		D3D11_DEPTH_STENCIL_VIEW_DESC depthStencilViewDesc;
+		depthStencilViewDesc.Format = depthTexDesc.Format;
+		depthStencilViewDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+		depthStencilViewDesc.Texture2D.MipSlice = 0;
+		depthStencilViewDesc.Flags = 0;
+		d3dDevice->CreateDepthStencilView(m_depthStencilTex, &depthStencilViewDesc, &m_depthStencilView);
 	}
-	return true;
+	{
+		m_viewport.TopLeftX = 0;
+		m_viewport.TopLeftY = 0;
+		m_viewport.Width = w;
+		m_viewport.Height = h;
+		m_viewport.MinDepth = 0.0f;
+		m_viewport.MaxDepth = 1.0f;
+	}
 }
-void RenderTarget::Release()
-{
-	m_renderTargetSRV.Release();
-	m_renderTargetUAV.Release();
-	if (m_renderTarget != nullptr) {
-		m_renderTarget->Release();
-		m_renderTarget = nullptr;
-	}
-	if (m_renderTargetView != nullptr) {
-		m_renderTargetView->Release();
-		m_renderTargetView = nullptr;
-	}
-	if (m_resolveTextureMSAA != nullptr) {
-		m_resolveTextureMSAA->Release();
-	}
-	if (m_depthStencil != nullptr) {
-		m_depthStencil->Release();
-		m_depthStencil = nullptr;
-	}
+
+void RenderTarget::ReleaseRenderTarget() {
 	if (m_depthStencilView != nullptr) {
 		m_depthStencilView->Release();
 		m_depthStencilView = nullptr;
 	}
+	if (m_depthStencilTex != nullptr) {
+		m_depthStencilTex->Release();
+		m_depthStencilTex = nullptr;
+	}
+
+	if (m_renderTargetView != nullptr) {
+		m_renderTargetView->Release();
+		m_renderTargetView = nullptr;
+	}
+	if (m_renderTargetTex != nullptr) {
+		m_renderTargetTex->Release();
+		m_renderTargetTex = nullptr;
+	}
+	if (m_renderTargetSRV != nullptr) {
+		m_renderTargetSRV->Release();
+	}
 }
+
+void RenderTarget::ClearRenderTarget(float* clearColor)
+{
+	auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
+	d3dDeviceContext->ClearRenderTargetView(m_renderTargetView, clearColor);
+	d3dDeviceContext->ClearDepthStencilView(m_depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+}
+

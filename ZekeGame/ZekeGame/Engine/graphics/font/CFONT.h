@@ -45,4 +45,10 @@ private:
 	DirectX::SpriteBatch*	m_spriteBatch = nullptr;	//!<スプライトバッチ。
 	DirectX::SpriteFont*	m_spriteFont = nullptr;		//!<スプライトフォント。
 	CMatrix m_scaleMat;
+	ID3D11BlendState* m_blendState;
+	FLOAT m_BlendFactor[4];
+	UINT m_SampleMask;
+	ID3D11RasterizerState* m_rasterizerState;
+	ID3D11DepthStencilState* m_depthStencilState;
+	UINT m_StencilRef;
 };

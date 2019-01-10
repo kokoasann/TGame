@@ -259,6 +259,7 @@ void Pad::Update()
 		float mx = 0.0f, my = 0.0f;
 		POINT pt;
 		GetCursorPos(&pt);
+		
 		mx = pt.x;
 		my = pt.y;
 
@@ -286,7 +287,6 @@ void Pad::Update()
 				SetCursorPos(pt.x, GetSystemMetrics(SM_CYSCREEN) - 10);
 			}
 		}
-
 		GetCursorPos(&pt);
 		oldx = pt.x;
 		oldy = pt.y;

@@ -128,13 +128,13 @@ public:
 	*/
 	void ClearRenderTargetView(unsigned int rtNo, float* clearColor, bool isClearDepthStencil = true)
 	{
-		if (rtNo < m_numRenderTargetView
+		/*if (rtNo < m_numRenderTargetView
 			&& m_renderTargetViews != nullptr) {
 			m_pD3DDeviceContext->ClearRenderTargetView(m_renderTargetViews[rtNo]->GetRenderTargetView(), clearColor);
 			if (m_renderTargetViews[0]->GetDepthStencilView() != nullptr && isClearDepthStencil) {
 				m_pD3DDeviceContext->ClearDepthStencilView(m_renderTargetViews[0]->GetDepthStencilView(), D3D11_CLEAR_DEPTH, 1.0f, 0);
 			}
-		}
+		}*/
 	}
 	/*!
 	* @brief	頂点バッファを設定。

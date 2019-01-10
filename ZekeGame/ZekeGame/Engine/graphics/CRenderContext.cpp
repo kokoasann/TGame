@@ -35,7 +35,7 @@ void CRenderContext::OMSetRenderTargets(unsigned int NumViews, RenderTarget* ren
 	ID3D11DepthStencilView*	depthStencilView = nullptr;
 
 	if (renderTarget != nullptr) {
-		depthStencilView = m_renderTargetViews[0]->GetDepthStencilView();
+		depthStencilView = m_renderTargetViews[0]->GetDepthStensilView();
 		for (unsigned int i = 0; i < NumViews; i++) {
 			renderTargetViews[i] = m_renderTargetViews[i]->GetRenderTargetView();
 		}

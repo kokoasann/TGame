@@ -10,4 +10,5 @@ namespace Mouse {
 	void UpdateMouseInput();
 	bool isTrigger(enMouseEve);
 	bool isPress(enMouseEve);
+	CVector3 GetCursorPos();
 }

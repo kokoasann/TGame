@@ -23,16 +23,49 @@ void GameObjectManager::Execute()
 			obj->UpdateWrapper();
 		}
 	}
+
+	//シャドウキャスターを登録。
+	//for (auto i = m_shadowCasters.begin(); i != m_shadowCasters.end(); ++i) {
+	//	m_shadowMap.RegistShadowCaster(m_);
+	//}
+	/*for (auto& caster : m_shadowCasters) {
+		m_shadowMap.RegistShadowCaster(caster);
+	}*/
+	//シャドウマップを更新。
+	m_shadowMap.UpdateFromLightTarget(
+		{ 1000.0f, 1000.0f, 1000.0f },
+		{ 0.0f, 0.0f, 0.0f }
+	);
+
 	for (GameObjectList objList : m_gameObjectListArray) {
 		for (GameObject* obj : objList) {
 			obj->PostUpdateWrapper();
 		}
 	}
 
+	m_postEffect.Update();
+
 	//g_graphicsEngine->GetEffectEngine().Update();
 
 	g_graphicsEngine->BegineRender();
-
+	//フレームバッファののレンダリングターゲットをバックアップしておく。
+	auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
+	d3dDeviceContext->OMGetRenderTargets(
+		1,
+		&m_frameBufferRenderTargetView,
+		&m_frameBufferDepthStencilView
+	);
+	//ビューポートもバックアップを取っておく。
+	unsigned int numViewport = 1;
+	d3dDeviceContext->RSGetViewports(&numViewport, &m_frameBufferViewports);
+	//シャドウマップにレンダリング
+	m_shadowMap.RenderToShadowMap();
+	//レンダリングターゲットをメインに変更する。
+	g_graphicsEngine->ChangeRenderTarget(&m_mainRenderTarget, &m_frameBufferViewports);
+	//メインレンダリングターゲットをクリアする。
+	float clearColor[] = { 0.2f, 0.2f, 0.2f, 1.0f };
+	m_mainRenderTarget.ClearRenderTarget(clearColor);
+	//レンダリング
 	for (GameObjectList objList : m_gameObjectListArray) {
 		for (GameObject* obj : objList) {
 			obj->PreRenderWrapper();
@@ -51,6 +84,19 @@ void GameObjectManager::Execute()
 			obj->PostRenderWrapper();
 		}
 	}
+
+	m_postEffect.Draw();
+	//レンダリングターゲットをフレームバッファに戻す。
+	g_graphicsEngine->ChangeRenderTarget(
+		m_frameBufferRenderTargetView,
+		m_frameBufferDepthStencilView,
+		&m_frameBufferViewports
+	);
+	//ドロドロ
+	m_copyMainRtToFrameBufferSprite.Draww();
+
+	m_frameBufferRenderTargetView->Release();
+	m_frameBufferDepthStencilView->Release();
 	g_graphicsEngine->EndRender();
 }
 
@@ -90,4 +136,17 @@ void GameObjectManager::Init(int gameObjectPrioMax)
 	m_gameObjectListArray.resize(gameObjectPrioMax);
 	m_deleteObjectArray[0].resize(gameObjectPrioMax);
 	m_deleteObjectArray[1].resize(gameObjectPrioMax);
+
+	m_mainRenderTarget.Create(
+		FRAME_BUFFER_W,
+		FRAME_BUFFER_H,
+		DXGI_FORMAT_R16G16B16A16_FLOAT
+	);
+	//メインレンダリングターゲットに描かれた絵を
+	//フレームバッファにコピーするためのスプライトを初期化する。
+	m_copyMainRtToFrameBufferSprite.Init(
+		m_mainRenderTarget.GetRenderTargetSRV(),
+		FRAME_BUFFER_W,
+		FRAME_BUFFER_H
+	);
 }

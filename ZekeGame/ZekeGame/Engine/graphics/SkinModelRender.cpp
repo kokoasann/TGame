@@ -23,11 +23,14 @@ void SkinModelRender::Update() {
 }
 
 void SkinModelRender::Render() {
-	m_skinModel.SetDirColor(m_dirCol);
-	m_skinModel.SetDirLight(m_dirLight);
-	m_skinModel.Draw();
-	m_skinModel.SetDirColor(m_defCol);
-	m_skinModel.SetDirLight(m_defDir);
+	m_skinModel.SetDirColor(m_dirCol,0);
+	m_skinModel.SetDirLight(m_dirLight,0);
+	m_skinModel.SetShadowMap(IGameObjectManager().GetShadowMap()->GetShadowMapSRV());
+	m_skinModel.Draw(enRenderMode_Normal,
+		camera3d->GetViewMatrix(),
+		camera3d->GetProjectionMatrix());
+	m_skinModel.SetDirColor(m_defCol,0);
+	m_skinModel.SetDirLight(m_defDir,0);
 }
 
 

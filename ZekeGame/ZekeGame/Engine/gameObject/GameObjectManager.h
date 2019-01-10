@@ -4,6 +4,9 @@
 #include "GameObject.h"
 #include "Engine/graphics/CUtil.h"
 #include "CTransform.h"
+#include "../graphics/ShadowMap.h"
+#include "../graphics/postEffect/Bloom.h"
+#include "../graphics/postEffect/PostEffect.h"
 
 class CTransform;
 
@@ -12,8 +15,18 @@ class GameObjectManager : Noncopyable
 private:
 	GameObjectManager() :
 		m_gameObjectPriorityMax(0)
-	{}
-	~GameObjectManager(){}
+	{
+	}
+	~GameObjectManager() {
+		m_mainRenderTarget.ReleaseRenderTarget();
+		if (m_frameBufferRenderTargetView != nullptr) {
+			m_frameBufferRenderTargetView->Release();
+		}
+		if (m_frameBufferDepthStencilView != nullptr) {
+			m_frameBufferDepthStencilView->Release();
+		}
+		m_shadowMap.ClearShadowCasters();
+	}
 	/*!
 		*@brief	ゲームオブジェクトの名前キーを作成。
 		*/
@@ -30,6 +43,13 @@ private:
 		return hash;
 	}
 public:
+	void AddShadowCaster(SkinModel* model) {
+		m_shadowMap.RegistShadowCaster(model);
+		//m_shadowCaster = model;
+	}
+	void ClearShadowCasters() {
+		m_shadowMap.ClearShadowCasters();
+	}
 	/*!
  *@brief	インスタンスの取得。
  */
@@ -170,6 +190,9 @@ public:
 		}
 
 	}
+	ShadowMap* GetShadowMap() {
+		return &m_shadowMap;
+	}
 private:
 	/*!
 		 *@brief	ゲームオブジェクトの削除を実行。
@@ -179,7 +202,21 @@ private:
 	*@brief	シーングラフの更新。
 	*/
 	void UpdateSceneGraph();
+	public:
+	RenderTarget* GetMainRenderTarget() {
+		return &m_mainRenderTarget;
+	}
+
 private:
+	ShadowMap m_shadowMap;					//シャドウマップ。
+	RenderTarget m_mainRenderTarget;		//メインレンダリングターゲット。
+	PostEffect m_postEffect;				//ポストエフェクト。
+	Sprite m_copyMainRtToFrameBufferSprite;			//メインレンダリングターゲットに描かれた絵をフレームバッファにコピーするためのスプライト。
+	D3D11_VIEWPORT m_frameBufferViewports;			//フレームバッファのビューポート。
+	ID3D11RenderTargetView* m_frameBufferRenderTargetView = nullptr;	//フレームバッファのレンダリングターゲットビュー。
+	ID3D11DepthStencilView* m_frameBufferDepthStencilView = nullptr;	//フレームバッファのデプスステンシルビュー。
+	//std::vector<SkinModel*> m_shadowCasters;
+	SkinModel* m_shadowCaster = nullptr;
 	CTransform m_transform;												//!<Transform。
 	typedef std::list<GameObject*>	GameObjectList;
 	std::vector<GameObjectList>	m_gameObjectListArray;					//!<ゲームオブジェクトの優先度付きリスト。
@@ -191,7 +228,7 @@ private:
 };
 
 
-static inline GameObjectManager& GameObjectManager()
+static inline GameObjectManager& IGameObjectManager()
 {
 	return GameObjectManager::Instance();
 }
@@ -205,7 +242,7 @@ static inline GameObjectManager& GameObjectManager()
 template<class T, class... TArgs>
 static inline T* NewGO(int priority, const char* objectName, TArgs... ctorArgs)
 {
-	return GameObjectManager().NewGameObject<T>((GameObjectPrio)priority, objectName, ctorArgs...);
+	return IGameObjectManager().NewGameObject<T>((GameObjectPrio)priority, objectName, ctorArgs...);
 }
 
 
@@ -216,7 +253,7 @@ static inline T* NewGO(int priority, const char* objectName, TArgs... ctorArgs)
 	 */
 static inline void DeleteGO(GameObject* go)
 {
-	GameObjectManager().DeleteGameObject(go);
+	IGameObjectManager().DeleteGameObject(go);
 }
 
 /*!
@@ -227,14 +264,14 @@ static inline void DeleteGO(GameObject* go)
 	 */
 static inline void AddGO(int priority, GameObject* go, const char* objectName = nullptr)
 {
-	GameObjectManager().AddGameObject(static_cast<GameObjectPrio>(priority), go, objectName);
+	IGameObjectManager().AddGameObject(static_cast<GameObjectPrio>(priority), go, objectName);
 }
 /*!
 *@brief	指定したタグのいずれかがが含まれるゲームオブジェクトを検索して、見つかった場合指定されたコールバック関数を呼び出す。
 */
 static inline 	void FindGameObjectsWithTag(unsigned int tags, std::function<void(GameObject* go)>func)
 {
-	GameObjectManager().FindGameObjectsWithTag(tags, func);
+	IGameObjectManager().FindGameObjectsWithTag(tags, func);
 }
 /*!
 *@brief	ゲームオブジェクトの検索のヘルパー関数。
@@ -243,7 +280,7 @@ static inline 	void FindGameObjectsWithTag(unsigned int tags, std::function<void
 template<class T>
 static inline T* FindGO(const char* objectName)
 {
-	return GameObjectManager().FindGameObject<T>(objectName);
+	return IGameObjectManager().FindGameObject<T>(objectName);
 }
 /*!
 *@brief	ゲームオブジェクトの検索のヘルパー関数。
@@ -255,7 +292,7 @@ static inline T* FindGO(const char* objectName)
 template<class T>
 static inline void QueryGOs(const char* objectName, std::function<bool(T* go)> func)
 {
-	return GameObjectManager().FindGameObjects<T>(objectName, func);
+	return IGameObjectManager().FindGameObjects<T>(objectName, func);
 }
 
 #endif // _CGAMEOBJECTMANAGER_H
