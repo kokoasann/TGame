@@ -13,6 +13,14 @@ public:
 	void Update() override;
 	void ChengeImage(const wchar_t* path,int monid);
 	void SetPython(const wchar_t* py,int num);
+
+	void yesSelect();
+	void notSelect();
+	bool isSelect()
+	{
+		return m_issel;
+	}
+
 	void PostRender() override;
 
 	int GetMonsterID()
@@ -40,6 +48,8 @@ private:
 	SpriteRender* m_mon = nullptr;
 
 	bool m_ismonsel = false;
+
+	CVector3 m_mickey = CVector3::Zero();
 
 	wchar_t m_python[16] = L"testBrain";
 	CFont font;

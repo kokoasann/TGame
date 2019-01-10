@@ -2,6 +2,8 @@
 #include "Win.h"
 #include "../ResultCamera.h"
 
+#include "../../Game.h"
+#include "../../Title/pvpModeSelect.h"
 #include "../../Monster/Monster.h"
 #include "../../GameData.h"
 
@@ -25,7 +27,10 @@ Win::Win()
 
 Win::~Win()
 {
+	NewGO<PvPModeSelect>(0, "pvp");
+	DeleteGO(m_sr);
 	DeleteGO(m_cam);
+	DeleteGO(FindGO<Game>("Game"));
 }
 
 void Win::init(int team)
@@ -37,8 +42,8 @@ void Win::init(int team)
 	MonsterSet();
 	CameraSet();
 
-	SpriteRender* sr = NewGO<SpriteRender>(0, "sr");
-	sr->Init(L"Assets/Sprite/clear.dds", 1280, 720);
+	m_sr = NewGO<SpriteRender>(0, "sr");
+	m_sr->Init(L"Assets/Sprite/clear.dds", 1280, 720);
 }
 
 bool Win::Start()
@@ -51,7 +56,7 @@ void Win::Update()
 {
 	if (g_pad[0].IsTrigger(enButtonA))
 	{
-		
+		DeleteGO(this);
 	}
 }
 

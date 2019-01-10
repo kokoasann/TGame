@@ -14,7 +14,7 @@ class StageSetup
 public:
 	StageSetup();
 	~StageSetup();
-	void PVPSetup(std::vector<std::string> files,int monsterAI[6],MonsterID monids[6]);
+	static void PVPSetup(std::vector<std::string> files,int monsterAI[6],MonsterID monids[6]);
 	
 private:
 

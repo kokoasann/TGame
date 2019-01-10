@@ -18,4 +18,5 @@ public:
 private:
 	ResultCamera* m_cam = nullptr;
 	int m_team = 0;
+	SpriteRender* m_sr = nullptr;
 };

@@ -40,13 +40,26 @@ void PMMonster::Update()
 		DeleteGO(m_ais);
 		m_ismonsel = false;
 	}
+
+	/*CVector3 v = m_cursor->GetCursor();
+	v -= m_mickey;
+	if (v.Length() < 0.1f)
+	{
+		return;
+	}*/
+
 	bool isothersel = false;
+	bool issel = false;
 	QueryGOs<PMMonster>("pmm", [&](PMMonster* pmm)->bool
 	{
 		if (pmm->isMonSel())
 		{
 			isothersel = true;
 			return false;
+		}
+		if (!issel && pmm->isSelect() && pmm != this)
+		{
+			issel = true;
 		}
 		return true;
 	});
@@ -73,7 +86,7 @@ void PMMonster::Update()
 	}
 	else
 	{
-		if (m_issel)
+		if (m_issel && issel)
 		{
 			m_frame->Init(L"Assets/sprite/mon_none.dds", 128, 128);
 			m_issel = false;
@@ -105,6 +118,18 @@ void PMMonster::SetPython(const wchar_t * py,int num)
 			m_python[i] = L'\0';
 		}
 	}
+}
+
+void PMMonster::yesSelect()
+{
+	m_issel = true;
+	m_frame->Init(L"Assets/sprite/mon_frame.dds", 128, 128);
+}
+
+void PMMonster::notSelect()
+{
+	m_issel = true;
+	m_frame->Init(L"Assets/sprite /mon_none.dds", 128, 128);
 }
 
 void PMMonster::PostRender()
