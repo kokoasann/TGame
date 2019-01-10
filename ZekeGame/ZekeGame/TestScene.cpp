@@ -69,6 +69,14 @@ void TestScene::Update() {
 	CVector3 addedPos = pos;
 	addedPos.x += 50.f;
 	m_skinModel->SetRotation(m_rot);
+	m_skinModel->SetDirLigColor(col,0);
+	m_skinModel->SetDirLigColor(col,1);
 	m_skinModel->SetDirLigColor(col,2);
 	//m_camera->Update();
+}
+
+void TestScene::PostRender() {
+	m_font.Begin();
+	m_font.Draw(L"Neko", CVector2::Zero(),CVector4::White);
+	m_font.End();
 }
